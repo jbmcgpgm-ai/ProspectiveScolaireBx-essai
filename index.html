@@ -1,0 +1,2430 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>ESSAI – Prospective scolaire de Bordeaux</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Pas d'indexation par les moteurs de recherche : application réservée (journal DATA_PUBLIQUE_Bx, Q1 et Q80). -->
+<meta name="robots" content="noindex, nofollow">
+<!-- Politique de sécurité de contenu : seuls les scripts de la page (empreintes calculées par generer.py)
+     et le fichier de données de l'application s'exécutent. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-BgnEYH8M9FDutnn2C64pSjzrhf7swSURiJCqPL/Vaaw=' 'sha256-uucfFDnEGJhkMV5JZcKKBNcwPcNET6TKfFEwUhAQkPM='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<style>
+/* Styles de base de la Prospective scolaire de Bordeaux — repris de l'Observatoire (page/styles.css :
+   couleurs claires et sombres, page, bandeau ; createur_carte.css : boutons, aides, comptes rendus), le
+   17/11/2026. Contrastes déjà contrôlés dans l'observatoire (revue du 11/11/2026). */
+  :root {
+    color-scheme: light;
+    --surface:        #F6F1EA;
+    --surface-raised: #FFFFFF;
+    --surface-sunken:  #EFE6DB;
+    --ink:            #241A1D;
+    --ink-secondary:  #6B5A5E;
+    --ink-muted:      #736468; /* contraste 4,5+ sur tous les fonds clairs (revue 11/11, constat 3) */
+    --accent:         #7A1E3D;
+    --accent-strong:  #5E1730;
+    --accent-tint:    #F1DCE2;
+    --accent-ink:     #FFFFFF;
+    --line:           #E4D9CF;
+    --line-strong:    #D2C4B6;
+    --good:           #0ca30c;
+    --warn:           #8a5a00; /* contraste 4,5+ (revue 11/11) */
+    --shadow: 0 1px 2px rgba(36,26,29,0.06), 0 8px 24px -12px rgba(36,26,29,0.18);
+
+    --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+    --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
+    --ci-nodata: #ded9d0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface:        #171113;
+      --surface-raised: #211819;
+      --surface-sunken: #120D0E;
+      --ink:            #F3ECE7;
+      --ink-secondary:  #C2AFB2;
+      --ink-muted:      #A8979A; /* contraste 4,5+ sur fonds sombres (revue 11/11) */
+      --accent:         #E39AAE;
+      --accent-strong:  #EDB4C3;
+      --accent-tint:    #3A2229;
+      --accent-ink:     #2B1319;
+      --line:           #3A2C2F;
+      --line-strong:    #4B3A3D;
+      --good:           #3fbf51;
+      --warn:           #e0a72d;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+
+      --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+      --s5: #d55181; --s6: #14a814; --s7: #9085e9; --s8: #e66767;
+      --ci-nodata: #3a3a37;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface:        #171113;
+    --surface-raised: #211819;
+    --surface-sunken: #120D0E;
+    --ink:            #F3ECE7;
+    --ink-secondary:  #C2AFB2;
+    --ink-muted:      #A8979A; /* contraste 4,5+ sur fonds sombres (revue 11/11) */
+    --accent:         #E39AAE;
+    --accent-strong:  #EDB4C3;
+    --accent-tint:    #3A2229;
+    --accent-ink:     #2B1319;
+    --line:           #3A2C2F;
+    --line-strong:    #4B3A3D;
+    --good:           #3fbf51;
+    --warn:           #e0a72d;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+    --s5: #d55181; --s6: #14a814; --s7: #9085e9; --s8: #e66767;
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --surface:        #F6F1EA;
+    --surface-raised: #FFFFFF;
+    --surface-sunken:  #EFE6DB;
+    --ink:            #241A1D;
+    --ink-secondary:  #6B5A5E;
+    --ink-muted:      #736468; /* contraste 4,5+ sur tous les fonds clairs (revue 11/11, constat 3) */
+    --accent:         #7A1E3D;
+    --accent-strong:  #5E1730;
+    --accent-tint:    #F1DCE2;
+    --accent-ink:     #FFFFFF;
+    --line:           #E4D9CF;
+    --line-strong:    #D2C4B6;
+    --good:           #0ca30c;
+    --warn:           #8a5a00; /* contraste 4,5+ (revue 11/11) */
+
+    --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+    --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--surface);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  html { overflow-x: hidden; }
+  body { min-height: 100vh; overflow-x: hidden; }
+  ::selection { background: var(--accent-tint); color: var(--ink); }
+
+  h1, h2, h3, .display {
+    font-family: 'Spectral', Georgia, serif;
+    text-wrap: balance;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .app {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 28px 28px 80px;
+  }
+
+  header.masthead {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-bottom: 22px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  header.masthead .sous-titre { font-size: 16px; color: var(--ink-secondary); margin: 0; }
+  header.masthead h1 {
+    font-size: 30px;
+    margin: 2px 0 4px;
+    color: var(--ink);
+  }
+  header.masthead p {
+    margin: 0;
+    color: var(--ink-secondary);
+    font-size: 14.5px;
+    max-width: 68ch;
+    line-height: 1.5;
+  }
+  .panel { background: var(--surface-raised); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); }
+  .content { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+  .content:focus { outline: none; }
+  .card { padding: 22px 24px; }
+  .def-text { font-size: 15px; line-height: 1.55; color: var(--ink); margin: 10px 0 0; max-width: 74ch; }
+  .evitement { position: absolute; left: -9999px; top: 8px; padding: 8px 12px; background: var(--surface-raised); color: var(--accent);
+    border: 2px solid var(--accent); border-radius: 6px; font-weight: 600; z-index: 10; }
+  .evitement:focus { left: 8px; }
+  @media (max-width: 600px) { .app { padding: 16px 16px 60px; } .card { padding: 16px; } header.masthead h1 { font-size: 24px; } }
+  /* --- Créateur de carte (brief docs/brief-createur-carte.md) --- */
+  .cartes-nav-item.createur-carte-btn {
+    margin-top: 8px; border: 1px dashed var(--line-strong); color: var(--accent); font-weight: 600;
+  }
+  .cartes-nav-item.createur-carte-btn.active { color: var(--accent-ink); border-style: solid; }
+  .cc-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .cc-dialog {
+    width: min(680px, calc(100vw - 32px)); max-height: calc(100vh - 32px); padding: 0;
+    border: 1px solid var(--line-strong); border-radius: 10px; background: var(--surface-raised); color: var(--ink);
+    box-shadow: var(--shadow);
+  }
+  .cc-dialog::backdrop { background: rgba(36, 26, 29, 0.55); }
+  .cc-dialog form { padding: 18px 22px 22px; }
+  .cc-dialog-entete { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .cc-dialog h2 { margin: 0; font-size: 20px; }
+  .cc-fermer {
+    font-size: 26px; line-height: 1; width: 44px; height: 44px; border: none; border-radius: 6px;
+    background: transparent; color: var(--ink); cursor: pointer;
+  }
+  .cc-fermer:hover { background: var(--surface-sunken); }
+  .cc-intro { font-size: 14px; color: var(--ink-secondary); margin: 6px 0 12px; }
+  .cc-dialog fieldset { border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px 14px; margin: 0 0 14px; min-width: 0; }
+  .cc-dialog legend { font-weight: 700; padding: 0 6px; }
+  .cc-dialog label { display: block; font-size: 14px; font-weight: 600; margin: 12px 0 4px; }
+  .cc-dialog input[type="text"], .cc-dialog select, .cc-dialog input[type="file"] {
+    width: 100%; box-sizing: border-box; font: inherit; font-size: 15px; padding: 8px 10px;
+    border: 1px solid var(--line-strong); border-radius: 6px; background: var(--surface); color: var(--ink);
+  }
+  .cc-dialog input:focus-visible, .cc-dialog select:focus-visible, .cc-dialog summary:focus-visible,
+  .cc-bouton:focus-visible, .cc-lien:focus-visible, .cc-fermer:focus-visible, .cc-titre-carte:focus-visible,
+  .cc-tableau summary:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px;
+  }
+  .cc-dialog input[aria-invalid="true"], .cc-dialog select[aria-invalid="true"] { border-color: #b3261e; border-width: 2px; }
+  .cc-aide { font-size: 13px; color: var(--ink-secondary); margin: 4px 0 0; line-height: 1.45; }
+  .cc-erreur { font-size: 13.5px; font-weight: 600; color: #b3261e; margin: 4px 0 0; }
+  .cc-erreur:empty { display: none; }
+  .cc-lien { background: none; border: none; padding: 0; font: inherit; color: var(--accent); text-decoration: underline; cursor: pointer; }
+  .cc-modeemploi { margin-top: 10px; font-size: 14px; }
+  .cc-modeemploi summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+  .cc-modeemploi ol { margin: 8px 0 0; padding-left: 22px; line-height: 1.5; }
+  .cc-rapport { margin-top: 12px; font-size: 14px; }
+  .cc-rapport ul { margin: 4px 0 8px; padding-left: 20px; max-height: 9em; overflow: auto; }
+  .cc-rapport-titre { font-weight: 600; margin: 10px 0 0; }
+  .cc-rapport-bilan { margin: 0; }
+  .cc-dialog .cc-doublon { margin: 6px 0; padding: 6px 12px 8px; }
+  .cc-dialog .cc-doublon label { display: inline; font-weight: 400; margin: 0; }
+  .cc-doublon div { padding: 3px 0; }
+  .cc-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .cc-bouton {
+    font: inherit; font-size: 14.5px; min-height: 44px; padding: 8px 16px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink);
+  }
+  .cc-bouton:hover { background: var(--surface-sunken); }
+  .cc-bouton.cc-principal { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+  .cc-bouton.cc-principal:hover { background: var(--accent-strong); }
+  .cc-titre-carte { margin: 0; font-size: 21px; line-height: 1.3; }
+  .cc-sous-titre { margin: 4px 0 12px; font-size: 14px; color: var(--ink-secondary); }
+  .cc-carte-et-legende { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; }
+  .cc-carte { flex: 1 1 300px; max-width: 560px; min-width: 0; background: #ffffff; border-radius: 8px; }
+  .cc-carte svg { display: block; width: 100%; height: auto; }
+  .cc-legende { flex: 0 1 240px; font-size: 14px; }
+  .cc-legende-titre { font-weight: 700; margin: 0 0 6px; }
+  .cc-legende ul { list-style: none; margin: 0; padding: 0; }
+  .cc-legende li { display: flex; align-items: center; gap: 8px; padding: 3px 0; }
+  .cc-pastille { width: 22px; height: 16px; flex: none; border: 1px solid #6B5A5E; }
+  .cc-hachure { background: repeating-linear-gradient(45deg, #ded9d0 0 3px, #9a9185 3px 5px); }
+  .cc-nb { color: var(--ink-secondary); }
+  .cc-origine { font-size: 13px; color: var(--ink-secondary); margin: 12px 0 0; }
+  .cc-tableau { margin-top: 14px; font-size: 14px; }
+  .cc-tableau summary { cursor: pointer; font-weight: 600; color: var(--accent); }
+  .cc-tableau table { border-collapse: collapse; margin-top: 8px; width: 100%; }
+  .cc-tableau th, .cc-tableau td { text-align: left; padding: 4px 8px; border-bottom: 1px solid var(--line); }
+  .cc-tableau th[scope="row"] { font-weight: 400; }
+  .cc-tableau td.cc-num { text-align: right; font-variant-numeric: tabular-nums; }
+  @media (max-width: 600px) {
+    .cc-dialog form { padding: 14px; }
+    .cc-dialog fieldset { padding: 8px 10px 12px; }
+  }
+  .cc-proposer-msg:empty { display: none; }
+  .cc-proposer-msg { margin-top: 12px; padding: 10px 14px; border-left: 4px solid var(--accent);
+    background: var(--accent-tint); border-radius: 6px; font-size: 14.5px; }
+  .cc-proposer-msg p { margin: 4px 0; }
+  .cc-case { display: flex; align-items: flex-start; gap: 8px; padding: 4px 0; }
+  .cc-case input { margin-top: 3px; width: 18px; height: 18px; flex: none; }
+  .cc-dialog .cc-case label { display: inline; font-weight: 400; margin: 0; }
+  .cc-case input:disabled + label { color: var(--ink-muted); }
+  .cc-sous-legende { font-weight: 600; font-size: 14px; margin: 14px 0 4px; }
+  .cc-fond-groupe { border-top: 1px solid var(--line); padding: 4px 0; }
+  .cc-fond-groupe summary { cursor: pointer; font-weight: 600; font-size: 14px; padding: 6px 0; min-height: 24px; }
+  .cc-fond-groupe .cc-case { padding-left: 14px; }
+  .cc-case-noms { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+  .cc-icone { vertical-align: -3px; flex: none; }
+  .cc-trait { display: inline-block; width: 22px; height: 0; flex: none; }
+  .cc-legende-fond { margin-top: 14px; }
+  .cc-legende li.cc-legende-calque { display: block; }
+  .cc-legende li ul { padding-left: 22px; margin: 2px 0 4px; font-size: 13px; }
+  .cc-legende li ul li { padding: 1px 0; }
+  .cc-theme { padding-left: 14px; }
+  .cc-dialog .cc-theme > .cc-case label { font-weight: 600; }
+  .cc-sous-cases { padding-left: 26px; }
+  .cc-fond-groupe .cc-sous-cases .cc-case { padding-left: 0; }
+  /* Case + libellé du thème sur une ligne, bouton « sous-catégories » dessous. */
+  .cc-case-theme { flex-wrap: wrap; align-items: flex-start; }
+  .cc-case-theme label { flex: 1 1 calc(100% - 34px); min-width: 0; }
+  .cc-deplier {
+    margin-left: 26px; margin-top: 2px; font: inherit; font-size: 13px; color: var(--accent); background: none;
+    border: 1px solid var(--line-strong); border-radius: 6px; padding: 4px 10px; min-height: 32px; cursor: pointer;
+  }
+  .cc-deplier:hover { background: var(--surface-sunken); }
+  .cc-deplier:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* Saisie directe des valeurs (2026-11-10, décision 81) */
+  .cc-mode { border: none; padding: 0; margin: 10px 0; display: grid; gap: 4px; }
+  .cc-mode legend { font-weight: 600; margin-bottom: 4px; }
+  .cc-saisie { max-height: 320px; overflow: auto; border: 1px solid var(--line); border-radius: 6px; }
+  .cc-saisie-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .cc-saisie-table th, .cc-saisie-table td { padding: 4px 8px; text-align: left; border-bottom: 1px solid var(--line); }
+  .cc-saisie-table thead th { position: sticky; top: 0; background: var(--surface-raised, #fff); }
+  .cc-saisie-table input { width: 9em; font: inherit; padding: 4px 6px; }
+
+
+  /* --- Prospective scolaire de Bordeaux (application séparée depuis le 17/11/2026 ; brief docs/brief-prospective-scolaire.md) --- */
+  .pr label { display: block; font-size: 14px; font-weight: 600; margin: 12px 0 4px; }
+  .pr input[type="password"], .pr input[type="file"] {
+    width: 100%; max-width: 420px; box-sizing: border-box; font: inherit; font-size: 15px; padding: 8px 10px;
+    border: 1px solid var(--line-strong); border-radius: 6px; background: var(--surface); color: var(--ink);
+  }
+  .pr input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .pr input[aria-invalid="true"] { border-color: #b3261e; border-width: 2px; }
+  .pr .cc-bouton:disabled { opacity: 0.6; cursor: wait; }
+  .pr-section { margin-top: 22px; padding-top: 4px; border-top: 1px solid var(--line); }
+  .pr-section h3 { font-size: 17px; margin: 12px 0 4px; }
+  .pr code { font-size: 13px; }
+  .pr-refuse { color: #b3261e; }
+  .pr-bandeau-fictif { margin: 10px 0; padding: 10px 14px; border: 2px dashed #8a4b00; border-radius: 8px;
+    background: #fff4e0; color: #4a2800; font-weight: 700; }
+  .pr-accepte { font-weight: 600; }
+  .pr-table { border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px; }
+  .pr-table caption { text-align: left; font-weight: 600; padding-bottom: 6px; }
+  .pr-table th, .pr-table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .pr-table th[scope="row"] { font-weight: 600; }
+  .pr-nombre { text-align: right; white-space: nowrap; }
+  .pr-inconnu { color: var(--ink-muted); font-style: italic; }
+  @media (max-width: 600px) { .pr-table-ecoles td:nth-child(4), .pr-table-ecoles th:nth-child(4) { display: none; } }
+  .pr select { font: inherit; font-size: 15px; padding: 7px 8px; max-width: 100%; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--surface); color: var(--ink); }
+  .pr select:focus-visible, .pr input[type="radio"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .pr-niveau { border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px 10px; margin: 10px 0; }
+  .pr-niveau legend { font-weight: 700; padding: 0 6px; }
+  .pr .pr-niveau label { display: inline-flex; align-items: center; gap: 6px; font-weight: 400; margin: 6px 18px 0 0; min-height: 24px; }
+  .pr-carte-et-legende { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; margin-top: 8px; }
+  .pr-carte { flex: 1 1 320px; max-width: 600px; min-width: 0; margin: 0; }
+  .pr-carte svg { width: 100%; height: auto; display: block; background: #ffffff; border-radius: 8px; border: 1px solid var(--line); }
+  .pr-carte path[data-ilot] { cursor: pointer; }
+  .pr-legende { flex: 0 1 260px; font-size: 14px; }
+  .pr-legende ul { list-style: none; padding: 0; margin: 4px 0 0; }
+  .pr-legende li { display: flex; align-items: center; gap: 8px; padding: 3px 0; }
+  .pr-legende-titre { font-weight: 600; margin: 0; }
+  .pr-pastille { flex: 0 0 auto; width: 18px; height: 14px; border: 1px solid #333333; border-radius: 3px; }
+  .pr-pastille-hachee { background: repeating-linear-gradient(45deg, #ffffff 0 3px, #555555 3px 5px); }
+  .pr-fiche { margin-top: 12px; padding: 10px 14px 14px; border: 1px solid var(--line); border-radius: 8px; }
+  .pr-dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; font-size: 14px; margin: 8px 0 0; }
+  .pr-dl dt { font-weight: 600; }
+  .pr-dl dd { margin: 0; overflow-wrap: anywhere; }
+  @media (max-width: 600px) { .pr-dl { grid-template-columns: 1fr; } .pr-dl dd { margin-bottom: 6px; } }
+  .pr-liste { margin-top: 12px; font-size: 14px; }
+  .pr-liste summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+  .pr-liste p { overflow-wrap: anywhere; }
+  .pr h4 { font-size: 15px; margin: 14px 0 4px; }
+  .pr-defile { overflow-x: auto; max-width: 100%; }
+  .pr-defile:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .pr-remplissage { display: inline-block; padding: 1px 6px; border-radius: 4px; font-weight: 600; white-space: nowrap; }
+  .pr-r-bas { background: #d9f2e3; color: #0b4d2c; }
+  .pr-r-moyen { background: #fde8c4; color: #5c3400; }
+  .pr-r-haut { background: #f9d0cc; color: #7a1610; }
+  .pr-evolution .pr-remplissage { margin-top: 3px; font-size: 12px; }
+  .pr-evolution tbody { border-bottom: 2px solid var(--line-strong); }
+  .pr-incomplet { color: #7a1610; font-weight: 700; }
+  .pr-plage { display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: end; }
+  .pr-plage label { margin: 6px 0 2px; }
+  .pr-pastille-vide { background: repeating-linear-gradient(45deg, #f2f2f2 0 3px, #8a8a8a 3px 4.5px); }
+  .pr-pastille-vide-vert { background: repeating-linear-gradient(45deg, #dff0e3 0 3px, #1b7a3a 3px 4.5px); }
+  .pr-pastille-vert { background: repeating-linear-gradient(-45deg, #ffffff 0 4px, #1b7a3a 4px 6px); }
+  .pr-trait { flex: 0 0 auto; width: 18px; height: 0; border-top: 1px solid #5f5f5f; }
+  .pr-trait-fer { border-top: 2px dashed #222222; }
+  .pr-controle { margin-top: 10px; font-size: 14px; }
+  .pr-controle ul { margin: 4px 0 0; padding-left: 20px; }
+  .pr-controle-ok { color: #0b4d2c; font-weight: 600; margin: 0; }
+  .pr-controle-alerte { color: #7a1610; margin: 0; }
+  .pr-carte-cadre { position: relative; flex: 1 1 320px; max-width: 600px; min-width: 0; }
+  .pr-carte-cadre .pr-carte { max-width: none; }
+  .pr-carte path[data-ilot]:hover { stroke: #000000; stroke-width: 2px; }
+  .pr-menu { position: absolute; z-index: 5; min-width: 220px; max-width: 320px; padding: 6px; background: var(--surface-raised);
+    color: var(--ink); border: 1px solid var(--line-strong); border-radius: 8px; box-shadow: var(--shadow); font-size: 14px; }
+  .pr-menu[hidden] { display: none; }
+  .pr-menu-titre { margin: 2px 6px 6px; font-weight: 700; }
+  .pr-menu-vide { margin: 4px 6px; color: var(--ink-secondary); }
+  .pr-menu button { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 36px; padding: 6px 8px; border: none;
+    border-radius: 6px; background: transparent; color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+  .pr-menu button:hover, .pr-menu button:focus-visible { background: var(--surface-sunken); outline: 2px solid var(--accent); outline-offset: -2px; }
+  .pr-menu .pr-menu-fermer { color: var(--ink-secondary); justify-content: flex-start; }
+  .pr .cc-rapport ul:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .pr-trait-modifie { border-top: 2px dashed #000000; outline: 1px solid #ffffff; }
+  .pr-fiche-titre { font-weight: 600; margin: 0; }
+  .pr-reaff { margin-top: 10px; }
+  .pr-reaff summary { cursor: pointer; color: var(--accent); font-weight: 600; min-height: 24px; }
+  .pr-reaff summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .pr-infobulle { position: absolute; z-index: 4; max-width: 340px; padding: 8px 10px; background: var(--surface-raised); color: var(--ink);
+    border: 1px solid var(--line-strong); border-radius: 8px; box-shadow: var(--shadow); font-size: 13px; line-height: 1.45; }
+  .pr-infobulle[hidden] { display: none; }
+  .pr-infobulle p { margin: 0 0 4px; }
+  .pr-infobulle p:last-child { margin-bottom: 0; }
+  .pr-ib-titre { font-weight: 700; }
+  .pr-adresses summary { cursor: pointer; color: var(--accent); }
+  .pr-adresses summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .pr-adresses ul { margin: 4px 0 0; padding-left: 18px; max-height: 14em; overflow: auto; }
+
+</style>
+</head>
+<body>
+<p role="note" style="margin:0;padding:.5rem 1rem;background:#7a1f00;color:#ffffff;font-weight:700;text-align:center">Site d’ESSAI : version de travail, réservée au compte admin. Le site de production n’est pas modifié.</p>
+<a class="evitement" href="#content">Aller au contenu</a>
+<div class="app">
+  <header class="masthead">
+    <span class="eyebrow">Accès réservé</span>
+    <h1>Prospective scolaire de Bordeaux</h1>
+    <p class="sous-titre">À usage interne de la Ville de Bordeaux</p>
+  </header>
+  <main class="content" id="content" tabindex="-1"></main>
+</div>
+<script>
+// Chargement des données chiffrées de l'application : un petit script `__donneesProspective({...});`
+// injecté par une balise <script> (et non un fetch()), pour fonctionner aussi en ouverture locale (file://).
+// Son nom contient une empreinte du contenu (cache navigateur, seul un fichier modifié est retéléchargé).
+const FICHIER_DONNEES = "donnees/prospective.5dbaf975c7.js";
+window.__donneesProspective = function (obj) { window.PROSPECTIVE_CHIFFRE = obj; };
+
+const scriptsCharges = {};
+function chargerScript(url, cb) {
+  let s = scriptsCharges[url];
+  if (s && s.etat === 'ok') { cb(null); return; }
+  if (s && s.etat === 'encours') { s.cbs.push(cb); return; }
+  s = scriptsCharges[url] = { etat: 'encours', cbs: [cb] };
+  const el = document.createElement('script');
+  el.src = url;
+  el.async = true;
+  el.onload = function () { s.etat = 'ok'; s.cbs.splice(0).forEach(function (f) { f(null); }); };
+  el.onerror = function () {
+    delete scriptsCharges[url];
+    el.remove();
+    s.cbs.splice(0).forEach(function (f) { f(new Error('Chargement impossible : ' + url)); });
+  };
+  document.head.appendChild(el);
+}
+
+</script>
+<script>
+/*
+ * Outils de lecture de fichiers et d'échappement — repris À L'IDENTIQUE du créateur de carte de
+ * l'Observatoire (ABS_Bdx/scripts/livrable/dashboard/createur_carte.js), le 17/11/2026, quand la
+ * prospective scolaire est devenue une application séparée (plan : docs/plan-application-prospective.md).
+ * Un test (tests/prospective.test.js) vérifie que ces fonctions restent identiques à l'original.
+ * Navigateur : objet global `OutilsFichiers` ; Node : module.exports.
+ */
+(function (racine, fabrique) {
+  'use strict';
+  const api = fabrique();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else racine.OutilsFichiers = api;
+}(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  const TAILLE_MAX_OCTETS = 5 * 1024 * 1024; // 5 Mo : très au-delà de 88 lignes
+
+  /** Échappe un texte saisi avant de l'insérer dans du SVG ou du HTML. */
+  function echapper(t) {
+    return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  /**
+   * Transforme les octets du fichier en texte. Excel enregistre souvent ses
+   * CSV en « Windows-1252 » (ancien codage des accents) et non en UTF-8 :
+   * on essaie UTF-8 strictement, sinon Windows-1252. Retire la marque BOM.
+   * @param {Uint8Array|ArrayBuffer} octets
+   */
+  function decoderTexte(octets) {
+    const o = octets instanceof Uint8Array ? octets : new Uint8Array(octets);
+    if (o.length > TAILLE_MAX_OCTETS) {
+      throw new Error('Fichier trop lourd : ' + Math.ceil(o.length / 1048576) +
+        ' Mo, maximum 5 Mo.');
+    }
+    let texte;
+    try {
+      texte = new TextDecoder('utf-8', { fatal: true }).decode(o);
+    } catch (e) {
+      texte = new TextDecoder('windows-1252').decode(o);
+    }
+    return texte.replace(/^﻿/, '');
+  }
+
+  /** Repère le séparateur (; , ou tabulation) sur la première ligne. */
+  function detecterSeparateur(texte) {
+    const ligne = String(texte).split(/\r?\n/)[0] || '';
+    let meilleur = ';', max = -1;
+    [';', '\t', ','].forEach(function (s) {
+      let n = 0, entreGuillemets = false;
+      for (const ch of ligne) {
+        if (ch === '"') entreGuillemets = !entreGuillemets;
+        else if (ch === s && !entreGuillemets) n++;
+      }
+      if (n > max) { max = n; meilleur = s; }
+    });
+    return meilleur;
+  }
+
+  /**
+   * Lit un texte CSV. Gère les guillemets ("a;b", "" pour un guillemet),
+   * les fins de ligne Windows, les lignes vides (ignorées).
+   * @returns {{separateur, colonnes: string[], lignes: Array<{numero, cellules}>}}
+   *   numero = numéro de ligne dans le fichier (l'en-tête est la ligne 1).
+   */
+  function lireCsv(texte) {
+    texte = String(texte).replace(/^﻿/, '');
+    const sep = detecterSeparateur(texte);
+    const brutes = [];
+    let cellule = '', ligne = [], guillemets = false, numero = 1, debut = 1;
+    for (let i = 0; i < texte.length; i++) {
+      const ch = texte[i];
+      if (guillemets) {
+        if (ch === '"' && texte[i + 1] === '"') { cellule += '"'; i++; }
+        else if (ch === '"') guillemets = false;
+        else { if (ch === '\n') numero++; cellule += ch; }
+      } else if (ch === '"') guillemets = true;
+      else if (ch === sep) { ligne.push(cellule); cellule = ''; }
+      else if (ch === '\r') { /* ignoré */ }
+      else if (ch === '\n') {
+        ligne.push(cellule); brutes.push({ numero: debut, cellules: ligne });
+        cellule = ''; ligne = []; numero++; debut = numero;
+      } else cellule += ch;
+    }
+    if (cellule !== '' || ligne.length) {
+      ligne.push(cellule); brutes.push({ numero: debut, cellules: ligne });
+    }
+    const nonVides = brutes.filter(function (l) {
+      return l.cellules.some(function (c) { return c.trim() !== ''; });
+    });
+    if (!nonVides.length) throw new Error('Le fichier est vide.');
+    const entete = nonVides[0];
+    return {
+      separateur: sep,
+      colonnes: entete.cellules.map(function (c, i) { return c.trim() || ('Colonne ' + (i + 1)); }),
+      lignes: nonVides.slice(1)
+    };
+  }
+
+  return {
+    TAILLE_MAX_OCTETS: TAILLE_MAX_OCTETS,
+    echapper: echapper,
+    decoderTexte: decoderTexte,
+    detecterSeparateur: detecterSeparateur,
+    lireCsv: lireCsv
+  };
+}));
+
+/*
+ * Prospective scolaire de Bordeaux (application séparée depuis le 17/11/2026) — logique sans affichage (brief : docs/brief-prospective-scolaire.md du projet
+ * DATA_PUBLIQUE_Bx, décisions 97 à 102 du journal). Briques 0 (référence), 1 (accès réservé), 2 (import).
+ *
+ * Fonctions « pures », testées par tests/prospective.test.js (depuis ABS_Bdx :
+ * node --test tests/prospective.test.js). Fonctionne dans le navigateur (objet global `Prospective`)
+ * et sous Node (module.exports), où le générateur du site l'utilise aussi pour chiffrer.
+ *
+ * Accès réservé (décision 97, solution 1 ; comptes individuels depuis la décision 121) : les données de
+ * référence sont chiffrées une seule fois (AES-GCM 256 bits) avec une clé tirée au hasard ; chaque compte
+ * reçoit une « enveloppe » : cette clé, chiffrée avec une clé tirée de SON mot de passe (PBKDF2-SHA-256).
+ * Retirer un compte = régénérer (nouvelle clé) sans son enveloppe. Le programme lui-même n'est pas
+ * chiffré : la politique de sécurité du site n'exécute que des programmes connus d'avance. Il ne
+ * contient aucune donnée.
+ *
+ * Les effectifs importés ne quittent jamais le navigateur (décision 99) : rien n'est envoyé ni
+ * enregistré.
+ */
+(function (racine, fabrique) {
+  'use strict';
+  const api = fabrique();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else racine.Prospective = api;
+}(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  const ITERATIONS = 600000;         // PBKDF2-SHA-256 : recommandation OWASP 2023
+  const LONGUEUR_MDP_MIN = 12;
+  // Identifiant de compte (choisi par le porteur, décision 123) : majuscules, chiffres, tiret, tiret bas ; saisi sans
+  // tenir compte des minuscules. Il est publié en clair avec l'enveloppe : jamais le nom d'une personne.
+  const FORMAT_IDENTIFIANT = /^[A-Z0-9][A-Z0-9_-]{2,29}$/;
+  const ERREUR_CONNEXION = 'Identifiant ou mot de passe incorrect.';
+  const NIVEAUX = ['PS', 'MS', 'GS', 'CP', 'CE1', 'CE2', 'CM1', 'CM2'];
+  const MATERNELLE = ['PS', 'MS', 'GS'];
+  const ELEMENTAIRE = ['CP', 'CE1', 'CE2', 'CM1', 'CM2'];
+  const ERREURS_AFFICHEES_MAX = 50;
+  const TAILLE_MAX_OCTETS = 5 * 1024 * 1024;
+
+  function sousCrypto() {
+    const c = (typeof globalThis !== 'undefined' && globalThis.crypto) || null;
+    if (!c || !c.subtle) throw new Error('Ce navigateur ne sait pas déchiffrer (fonction de chiffrement absente).');
+    return c.subtle;
+  }
+
+  // ------------------------------------------------------------------ base 64
+  function versBase64(octets) {
+    let s = '';
+    const o = new Uint8Array(octets);
+    for (let i = 0; i < o.length; i += 0x8000) s += String.fromCharCode.apply(null, o.subarray(i, i + 0x8000));
+    return btoa(s);
+  }
+  function depuisBase64(texte) {
+    const s = atob(texte);
+    const o = new Uint8Array(s.length);
+    for (let i = 0; i < s.length; i++) o[i] = s.charCodeAt(i);
+    return o;
+  }
+
+  // ------------------------------------------------------------------ brique 1 : chiffrement
+  async function deriverCle(motDePasse, sel, iterations) {
+    const subtle = sousCrypto();
+    const base = await subtle.importKey('raw', new TextEncoder().encode(motDePasse), 'PBKDF2', false, ['deriveKey']);
+    return subtle.deriveKey({ name: 'PBKDF2', hash: 'SHA-256', salt: sel, iterations: iterations },
+      base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+  }
+
+  function normaliserIdentifiant(texte) { return String(texte || '').trim().toUpperCase(); }
+
+  /** Vérifie la liste des comptes { identifiant: mot de passe } avant chiffrement ; erreur explicite sinon. */
+  function verifierComptes(comptes) {
+    const ids = Object.keys(comptes || {});
+    if (!ids.length) throw new Error('Aucun compte : au moins un identifiant et son mot de passe sont nécessaires.');
+    const vus = new Set();
+    ids.forEach(function (id) {
+      if (!FORMAT_IDENTIFIANT.test(id)) throw new Error('Identifiant « ' + id + ' » invalide : majuscules, chiffres, tirets, 3 à 30 caractères.');
+      const mdp = comptes[id];
+      if (typeof mdp !== 'string' || mdp.length < LONGUEUR_MDP_MIN) throw new Error('Mot de passe de ' + id + ' trop court : ' + LONGUEUR_MDP_MIN + ' caractères au moins.');
+      if (vus.has(mdp)) throw new Error('Deux comptes ont le même mot de passe : chaque personne doit avoir le sien.');
+      vus.add(mdp);
+    });
+    return ids.sort();
+  }
+
+  /** Chiffre un objet pour une liste de comptes { identifiant: mot de passe } (générateur du site, sous Node). */
+  async function chiffrer(objet, comptes, options) {
+    const ids = verifierComptes(comptes);
+    const it = (options && options.iterations) || ITERATIONS;
+    const subtle = sousCrypto();
+    const brute = globalThis.crypto.getRandomValues(new Uint8Array(32));   // clé des données, tirée au hasard
+    const cleDonnees = await subtle.importKey('raw', brute, { name: 'AES-GCM' }, false, ['encrypt']);
+    const iv = globalThis.crypto.getRandomValues(new Uint8Array(12));
+    const chiffre = await subtle.encrypt({ name: 'AES-GCM', iv: iv }, cleDonnees, new TextEncoder().encode(JSON.stringify(objet)));
+    const enveloppes = {};
+    for (const id of ids) {
+      const sel = globalThis.crypto.getRandomValues(new Uint8Array(16));
+      const ivc = globalThis.crypto.getRandomValues(new Uint8Array(12));
+      const cleCompte = await deriverCle(comptes[id], sel, it);
+      enveloppes[id] = { sel: versBase64(sel), iv: versBase64(ivc), cle: versBase64(await subtle.encrypt({ name: 'AES-GCM', iv: ivc }, cleCompte, brute)) };
+    }
+    brute.fill(0);
+    return { v: 2, kdf: 'PBKDF2-SHA-256', iterations: it, algo: 'AES-GCM-256',
+      iv: versBase64(iv), donnees: versBase64(chiffre), comptes: enveloppes };
+  }
+
+  /** Déchiffre avec un identifiant et son mot de passe. Inconnu ou faux : « Identifiant ou mot de passe incorrect. ». */
+  async function dechiffrer(enveloppe, identifiant, motDePasse) {
+    if (!enveloppe || enveloppe.v !== 2) throw new Error('Données de l’application illisibles (version inconnue).');
+    const id = normaliserIdentifiant(identifiant);
+    const compte = Object.prototype.hasOwnProperty.call(enveloppe.comptes || {}, id) ? enveloppe.comptes[id] : null;
+    if (!compte) throw new Error(ERREUR_CONNEXION);
+    const subtle = sousCrypto();
+    let brute;
+    try {
+      const cleCompte = await deriverCle(String(motDePasse || ''), depuisBase64(compte.sel), enveloppe.iterations);
+      brute = await subtle.decrypt({ name: 'AES-GCM', iv: depuisBase64(compte.iv) }, cleCompte, depuisBase64(compte.cle));
+    } catch (e) {
+      throw new Error(ERREUR_CONNEXION);
+    }
+    let clair;
+    try {
+      const cleDonnees = await subtle.importKey('raw', brute, { name: 'AES-GCM' }, false, ['decrypt']);
+      clair = await subtle.decrypt({ name: 'AES-GCM', iv: depuisBase64(enveloppe.iv) }, cleDonnees, depuisBase64(enveloppe.donnees));
+    } catch (e) {
+      throw new Error('Données de l’application illisibles (fichier altéré).');
+    }
+    return JSON.parse(new TextDecoder().decode(clair));
+  }
+
+  // ------------------------------------------------------------------ brique 2 : lecture des fichiers
+  function decoderXml(s) {
+    return String(s).replace(/&(#x[0-9a-fA-F]+|#\d+|amp|lt|gt|quot|apos);/g, function (m, e) {
+      if (e[0] === '#') return String.fromCodePoint(e[1] === 'x' ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10));
+      return { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'" }[e];
+    });
+  }
+
+  async function inflerBrut(octets) {
+    if (typeof DecompressionStream === 'undefined') throw new Error('Ce navigateur ne sait pas lire les fichiers Excel : enregistrez le fichier en CSV.');
+    const flux = new Blob([octets]).stream().pipeThrough(new DecompressionStream('deflate-raw'));
+    return new Uint8Array(await new Response(flux).arrayBuffer());
+  }
+
+  /** Lit les fichiers d'une archive ZIP (format des fichiers .xlsx). Rend {nom: Uint8Array}. */
+  async function lireZip(octets, voulus) {
+    const o = new Uint8Array(octets);
+    const dv = new DataView(o.buffer, o.byteOffset, o.byteLength);
+    let fin = -1;
+    for (let i = o.length - 22; i >= Math.max(0, o.length - 65557); i--) {
+      if (dv.getUint32(i, true) === 0x06054b50) { fin = i; break; }
+    }
+    if (fin < 0) throw new Error('Ce fichier n’est pas un classeur Excel (.xlsx) lisible.');
+    const nb = dv.getUint16(fin + 10, true);
+    let p = dv.getUint32(fin + 16, true);
+    const out = {};
+    for (let k = 0; k < nb; k++) {
+      if (dv.getUint32(p, true) !== 0x02014b50) throw new Error('Classeur Excel abîmé.');
+      const methode = dv.getUint16(p + 10, true);
+      const taille = dv.getUint32(p + 20, true);
+      const ln = dv.getUint16(p + 28, true), le = dv.getUint16(p + 30, true), lc = dv.getUint16(p + 32, true);
+      const local = dv.getUint32(p + 42, true);
+      const nom = new TextDecoder().decode(o.subarray(p + 46, p + 46 + ln));
+      p += 46 + ln + le + lc;
+      if (voulus && !voulus(nom)) continue;
+      const debut = local + 30 + dv.getUint16(local + 26, true) + dv.getUint16(local + 28, true);
+      const brut = o.subarray(debut, debut + taille);
+      if (methode === 0) out[nom] = brut;
+      else if (methode === 8) out[nom] = await inflerBrut(brut);
+      else throw new Error('Classeur Excel compressé d’une façon inconnue : enregistrez-le en CSV.');
+    }
+    return out;
+  }
+
+  function colonneIndex(ref) {
+    const lettres = /^[A-Z]+/.exec(ref)[0];
+    let n = 0;
+    for (const c of lettres) n = n * 26 + (c.charCodeAt(0) - 64);
+    return n - 1;
+  }
+
+  /** Lit la première feuille d'un classeur .xlsx. Même forme que la lecture CSV :
+   *  {colonnes, lignes: [{numero, cellules}]}, numero = numéro de ligne Excel. */
+  async function lireXlsx(octets) {
+    const fichiers = await lireZip(octets, function (n) {
+      return n === 'xl/workbook.xml' || n === 'xl/_rels/workbook.xml.rels' || n === 'xl/sharedStrings.xml' || /^xl\/worksheets\/[^/]+\.xml$/.test(n);
+    });
+    const txt = function (n) { return fichiers[n] ? new TextDecoder().decode(fichiers[n]) : ''; };
+    const classeur = txt('xl/workbook.xml');
+    const premiere = /<sheet\b[^>]*\br:id="([^"]+)"/.exec(classeur) || /<sheet\b[^>]*\bid="([^"]+)"/.exec(classeur);
+    let chemin = 'xl/worksheets/sheet1.xml';
+    if (premiere) {
+      const rel = new RegExp('<Relationship\\b[^>]*\\bId="' + premiere[1] + '"[^>]*\\bTarget="([^"]+)"').exec(txt('xl/_rels/workbook.xml.rels')) ||
+        new RegExp('<Relationship\\b[^>]*\\bTarget="([^"]+)"[^>]*\\bId="' + premiere[1] + '"').exec(txt('xl/_rels/workbook.xml.rels'));
+      if (rel) chemin = rel[1].replace(/^\/?(xl\/)?/, 'xl/');
+    }
+    if (!fichiers[chemin]) throw new Error('Feuille introuvable dans le classeur Excel.');
+    const partages = [];
+    txt('xl/sharedStrings.xml').replace(/<si\b[^>]*>([\s\S]*?)<\/si>/g, function (m, si) {
+      let t = '';
+      si.replace(/<t\b[^>]*>([\s\S]*?)<\/t>/g, function (m2, v) { t += v; return m2; });
+      partages.push(decoderXml(t));
+      return m;
+    });
+    const lignes = [];
+    txt(chemin).replace(/<row\b([^>]*?)(?:\/>|>([\s\S]*?)<\/row>)/g, function (m, attrs, contenu) {
+      const r = /\br="(\d+)"/.exec(attrs);
+      const cellules = [];
+      (contenu || '').replace(/<c\b([^>]*?)(?:\/>|>([\s\S]*?)<\/c>)/g, function (m2, ca, cc) {
+        const ref = /\br="([A-Z]+\d+)"/.exec(ca);
+        const type = (/\bt="([^"]+)"/.exec(ca) || [])[1] || 'n';
+        let v = '';
+        if (cc) {
+          if (type === 'inlineStr') { const t = /<t\b[^>]*>([\s\S]*?)<\/t>/.exec(cc); v = t ? decoderXml(t[1]) : ''; }
+          else {
+            const vv = /<v>([\s\S]*?)<\/v>/.exec(cc);
+            v = vv ? decoderXml(vv[1]) : '';
+            if (type === 's') v = partages[parseInt(v, 10)] || '';
+          }
+        }
+        const idx = ref ? colonneIndex(ref[1]) : cellules.length;
+        while (cellules.length < idx) cellules.push('');
+        cellules[idx] = v;
+        return m2;
+      });
+      lignes.push({ numero: r ? parseInt(r[1], 10) : lignes.length + 1, cellules: cellules });
+      return m;
+    });
+    const nonVides = lignes.filter(function (l) { return l.cellules.some(function (c) { return String(c).trim() !== ''; }); });
+    if (!nonVides.length) throw new Error('Le fichier est vide.');
+    return {
+      colonnes: nonVides[0].cellules.map(function (c, i) { return String(c).trim() || ('Colonne ' + (i + 1)); }),
+      lignes: nonVides.slice(1)
+    };
+  }
+
+  /** CSV ou Excel selon le nom du fichier. `lireCsv` et `decoderTexte` : ceux du créateur de carte. */
+  async function lireTableau(nomFichier, octets, outilsCsv) {
+    const o = new Uint8Array(octets);
+    if (o.length > TAILLE_MAX_OCTETS) throw new Error('Fichier trop lourd : maximum 5 Mo.');
+    const nom = String(nomFichier || '').toLowerCase();
+    if (/\.xlsx$/.test(nom)) return lireXlsx(o);
+    if (/\.xls$/.test(nom)) throw new Error('Ancien format Excel (.xls) non lu : enregistrez le fichier en .xlsx ou en CSV.');
+    if (/\.csv$|\.txt$/.test(nom)) return outilsCsv.lireCsv(outilsCsv.decoderTexte(o));
+    throw new Error('Format non reconnu : fichier .csv ou .xlsx attendu.');
+  }
+
+  // ------------------------------------------------------------------ brique 2 : contrôles
+  function cleColonne(c) {
+    return String(c).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  }
+
+  /** Indices des colonnes attendues ; erreur si l'une manque. */
+  function reperer(colonnes, attendues) {
+    const idx = {}, manquantes = [];
+    const cles = colonnes.map(cleColonne);
+    attendues.forEach(function (a) {
+      const i = cles.indexOf(cleColonne(a));
+      if (i < 0) manquantes.push(a); else idx[a] = i;
+    });
+    return { idx: idx, manquantes: manquantes };
+  }
+
+  /** Nombre entier positif ou nul écrit simplement (« 3 », « 3,0 », « 3.0 ») ; sinon null. */
+  function entier(v) {
+    const s = String(v == null ? '' : v).trim().replace(/\s/g, '');
+    if (!/^\d+([.,]0+)?$/.test(s)) return null;
+    return parseInt(s, 10);
+  }
+
+  /** Année de la rentrée en cours : à partir de septembre, l'année civile ; avant, la précédente. */
+  function rentreeEnCours(date) {
+    const d = date || new Date();
+    return d.getMonth() >= 8 ? d.getFullYear() : d.getFullYear() - 1;
+  }
+
+  function bilan(erreurs) {
+    return { erreurs: erreurs.slice(0, ERREURS_AFFICHEES_MAX), nbErreurs: erreurs.length };
+  }
+
+  /**
+   * Effectifs par îlot : colonnes ilot, annee, PS … CM2. Le fichier est refusé en entier s'il contient
+   * une erreur (pas d'import partiel) ; toutes les erreurs sont listées (50 au plus, plus le total).
+   * Années : actuelles ou passées seulement (décision 99).
+   * @returns {{ok, erreurs, nbErreurs, avertissements, effectifs, resume}}
+   *   effectifs = { ilot: { annee: {PS: n, …} } }
+   */
+  function validerEffectifs(table, idsIlots, date) {
+    const attendues = ['ilot', 'annee'].concat(NIVEAUX);
+    const r = reperer(table.colonnes, attendues);
+    if (r.manquantes.length) {
+      return Object.assign({ ok: false, avertissements: [], effectifs: null, resume: null },
+        bilan(['Colonne' + (r.manquantes.length > 1 ? 's' : '') + ' absente' + (r.manquantes.length > 1 ? 's' : '') + ' : ' +
+          r.manquantes.join(', ') + '. Colonnes attendues : ' + attendues.join(', ') + ' (téléchargez le modèle).']));
+    }
+    const connus = new Set(idsIlots);
+    const maxAnnee = rentreeEnCours(date);
+    const erreurs = [], effectifs = {}, vus = {};
+    table.lignes.forEach(function (l) {
+      const c = function (nom) { return String(l.cellules[r.idx[nom]] == null ? '' : l.cellules[r.idx[nom]]).trim(); };
+      const ilot = c('ilot').toUpperCase();
+      const anneeTxt = c('annee');
+      const pref = 'Ligne ' + l.numero + ' : ';
+      if (!connus.has(ilot)) erreurs.push(pref + 'îlot « ' + c('ilot') + ' » inconnu à La Bastide.');
+      const annee = /^\d{4}$/.test(anneeTxt) ? parseInt(anneeTxt, 10) : null;
+      if (annee === null) erreurs.push(pref + 'année « ' + anneeTxt + ' » illisible (année de rentrée sur 4 chiffres, ex. 2025).');
+      else if (annee > maxAnnee) erreurs.push(pref + 'année ' + annee + ' future : seules les années actuelles ou passées sont acceptées (dernière : ' + maxAnnee + ').');
+      const valeurs = {};
+      NIVEAUX.forEach(function (n) {
+        const brut = c(n);
+        if (brut === '') erreurs.push(pref + 'case ' + n + ' vide (écrire 0 s’il n’y a aucun enfant).');
+        else {
+          const v = entier(brut);
+          if (v === null) erreurs.push(pref + 'case ' + n + ' : « ' + brut + ' » n’est pas un nombre entier positif.');
+          else valeurs[n] = v;
+        }
+      });
+      if (connus.has(ilot) && annee !== null) {
+        const k = ilot + '|' + annee;
+        if (vus[k]) erreurs.push(pref + 'îlot ' + ilot + ', année ' + annee + ' déjà présent ligne ' + vus[k] + '.');
+        else {
+          vus[k] = l.numero;
+          (effectifs[ilot] = effectifs[ilot] || {})[annee] = valeurs;
+        }
+      }
+    });
+    if (!table.lignes.length) erreurs.push('Aucune ligne de données sous l’en-tête.');
+    if (erreurs.length) return Object.assign({ ok: false, avertissements: [], effectifs: null, resume: null }, bilan(erreurs));
+    const annees = Array.from(new Set([].concat.apply([], Object.values(effectifs).map(Object.keys)))).sort();
+    const totaux = {};
+    NIVEAUX.forEach(function (n) { totaux[n] = 0; });
+    Object.values(effectifs).forEach(function (parAnnee) {
+      Object.values(parAnnee).forEach(function (v) { NIVEAUX.forEach(function (n) { totaux[n] += v[n]; }); });
+    });
+    // Îlots à compléter dans le fichier (demande du porteur, 17/11/2026) : listés par identifiant.
+    const sans = idsIlots.filter(function (id) { return !effectifs[id]; }).sort();
+    const avertissements = [];
+    if (sans.length) {
+      avertissements.push(sans.length + ' îlot' + (sans.length > 1 ? 's' : '') + ' sur ' + idsIlots.length + ' sans aucune ligne : ' +
+        sans.join(', ') + '. Leurs effectifs sont inconnus (et non nuls) : ajoutez-les au fichier puis importez-le à nouveau.');
+    }
+    // Îlots présents certaines années seulement : absents d'une année du fichier.
+    const manquants = {};
+    annees.forEach(function (a) {
+      const m = Object.keys(effectifs).filter(function (id) { return !effectifs[id][a]; }).sort();
+      if (m.length) {
+        manquants[a] = m;
+        avertissements.push('Année ' + a + ' : ' + m.length + ' îlot' + (m.length > 1 ? 's' : '') + ' présent' + (m.length > 1 ? 's' : '') +
+          ' pour d’autres années mais pas pour celle-ci : ' + m.join(', ') + '.');
+      }
+    });
+    // Jeu FICTIF réimporté (colonne facultative « source », décision 133) : signalé par un bandeau.
+    const iSource = table.colonnes.map(cleColonne).indexOf('source');
+    const marque = iSource < 0 ? null : table.lignes.map(function (l) { return String(l.cellules[iSource] == null ? '' : l.cellules[iSource]).trim(); })
+      .filter(function (t) { return /^FICTIF/i.test(t); })[0] || null;
+    return { ok: true, erreurs: [], nbErreurs: 0, avertissements: avertissements, effectifs: effectifs, fictif: marque,
+      resume: { lignes: table.lignes.length, ilots: Object.keys(effectifs).length, ilotsTotal: idsIlots.length, annees: annees, totaux: totaux,
+        ilotsSansLigne: sans, manquantsParAnnee: manquants } };
+  }
+
+  /**
+   * Capacités : colonnes uai, capacite (colonne ecole facultative, pour le lecteur).
+   * Une capacité par école, primaire comprise, valable pour toutes les années (décision 100).
+   */
+  function validerCapacites(table, ecoles) {
+    const r = reperer(table.colonnes, ['uai', 'capacite']);
+    if (r.manquantes.length) {
+      return Object.assign({ ok: false, avertissements: [], capacites: null },
+        bilan(['Colonne' + (r.manquantes.length > 1 ? 's' : '') + ' absente' + (r.manquantes.length > 1 ? 's' : '') + ' : ' +
+          r.manquantes.join(', ') + '. Colonnes attendues : uai, ecole, capacite (téléchargez le modèle).']));
+    }
+    const parUai = {};
+    ecoles.forEach(function (e) { parUai[e.uai] = e; });
+    const erreurs = [], capacites = {}, vus = {};
+    table.lignes.forEach(function (l) {
+      const c = function (nom) { return String(l.cellules[r.idx[nom]] == null ? '' : l.cellules[r.idx[nom]]).trim(); };
+      const uai = c('uai').toUpperCase();
+      const pref = 'Ligne ' + l.numero + ' : ';
+      if (!parUai[uai]) { erreurs.push(pref + 'code d’école « ' + c('uai') + ' » inconnu à La Bastide.'); return; }
+      const v = entier(c('capacite'));
+      if (v === null || v === 0) erreurs.push(pref + 'capacité « ' + c('capacite') + ' » : nombre entier supérieur à 0 attendu.');
+      else if (vus[uai]) erreurs.push(pref + 'école ' + uai + ' déjà présente ligne ' + vus[uai] + '.');
+      else { vus[uai] = l.numero; capacites[uai] = v; }
+    });
+    if (!table.lignes.length) erreurs.push('Aucune ligne de données sous l’en-tête.');
+    if (erreurs.length) return Object.assign({ ok: false, avertissements: [], capacites: null }, bilan(erreurs));
+    const sans = ecoles.filter(function (e) { return !capacites[e.uai]; });
+    const iSource = table.colonnes.map(cleColonne).indexOf('source');
+    const fictif = iSource >= 0 && table.lignes.some(function (l) { return /^FICTIF/i.test(String(l.cellules[iSource] == null ? '' : l.cellules[iSource]).trim()); });
+    return { ok: true, erreurs: [], nbErreurs: 0, capacites: capacites, fictif: fictif,
+      avertissements: sans.length ? ['Sans capacité (écart non calculable) : ' + sans.map(nomEcole).join(', ') + '.'] : [] };
+  }
+
+  // ------------------------------------------------------------------ modèles et libellés
+  /** Nom lisible : l'annuaire donne parfois le même nom à la maternelle et à l'élémentaire. */
+  // Présentation homogène (demande du porteur, 17/11/2026) : NOM en majuscules, puis (mat.), (ele.) sans accent, ou (GS)
+  // pour un groupe scolaire (école primaire, PS à CM2). Le type d'école vient des colonnes de l'annuaire, pas du libellé.
+  function nomEcole(e) {
+    const type = e.maternelle && e.elementaire ? 'GS' : (e.maternelle ? 'mat.' : 'ele.');
+    const nom = String(e.nom).trim().replace(/^[EÉ]cole\s+(maternelle|élémentaire|elementaire|primaire)\s+(publique\s+)?/i, '');
+    return nom.toUpperCase() + ' (' + type + ')';
+  }
+
+  function celluleCsv(v) {
+    const s = String(v);
+    return /[;"\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  }
+  function versCsv(lignes) {
+    return '﻿' + lignes.map(function (l) { return l.map(celluleCsv).join(';'); }).join('\r\n') + '\r\n';
+  }
+
+  // ------------------------------------------------------------------ brique A : données FICTIVES (décisions 132, 133, 139)
+  // Élèves publiés de chaque ÉCOLE (ref.donnees_fictives), maternelle répartie selon les naissances, puis tirés au
+  // hasard entre les îlots de son secteur (carte de démarrage) selon leurs adresses (décision 139 : école par école,
+  // le total fictif de chaque école est celui publié ; la croissance reste dans les quartiers neufs). Tirage reproductible :
+  // un même numéro de jeu (graine) donne toujours les mêmes effectifs. Un seul jeu proposé (choix du porteur,
+  // 17/11/2026 : plusieurs tirages ont les mêmes totaux et ne racontent pas des histoires différentes).
+  const JEUX_FICTIFS = [1];
+  const ALEA_POIDS = 0.4;   // poids d'un îlot = adresses × (1 ± 0,4) : part de hasard propre à l'îlot, la même chaque année
+
+  /** Générateur de nombres pseudo-aléatoires reproductible (mulberry32), valeurs dans [0, 1[. */
+  function hasard(graine) {
+    let a = graine >>> 0;
+    return function () {
+      a = (a + 0x6D2B79F5) >>> 0;
+      let t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  /** Répartit un entier selon des poids (plus forts restes) ; poids tous nuls : parts égales. */
+  function repartirEntier(total, poids) {
+    const p = poids.some(function (x) { return x > 0; }) ? poids : poids.map(function () { return 1; });
+    const somme = p.reduce(function (a, b) { return a + b; }, 0);
+    const brut = p.map(function (x) { return total * x / somme; });
+    const parts = brut.map(Math.floor);
+    let reste = total - parts.reduce(function (a, b) { return a + b; }, 0);
+    brut.map(function (x, i) { return { i: i, f: x - Math.floor(x) }; })
+      .sort(function (a, b) { return b.f - a.f || a.i - b.i; })
+      .forEach(function (o) { if (reste > 0) { parts[o.i]++; reste--; } });
+    return parts;
+  }
+
+  /** Rentrées des données fictives : celles publiées, puis la suivante (tendance prolongée, décision 132). */
+  function anneesFictives(ref) {
+    const a = ref.donnees_fictives.annees.slice();
+    return a.concat([String(+a[a.length - 1] + 1)]);
+  }
+
+  /** Élèves publiés d'une école pour une rentrée publiée : {PS … CM2} ; école pas encore ouverte : zéros. */
+  function elevesPublies(ref, uai, annee) {
+    const df = ref.donnees_fictives, r = {};
+    NIVEAUX.forEach(function (n) { r[n] = 0; });
+    const l = (df.eleves_par_ecole[uai] || {})[annee];
+    if (!l) return r;
+    const nais = df.naissances_bordeaux, a = +annee;
+    const mat = repartirEntier(l.pre, [nais[a - 3], nais[a - 4], nais[a - 5]].map(Number));
+    MATERNELLE.forEach(function (n, i) { r[n] = mat[i]; });
+    if (ELEMENTAIRE.every(function (n) { return l[n] != null; })) ELEMENTAIRE.forEach(function (n) { r[n] = l[n]; });
+    else if (l.elem) {   // détail non publié (petite école) : réparti comme les écoles du quartier la même rentrée
+      const poids = ELEMENTAIRE.map(function (n) {
+        return Object.keys(df.eleves_par_ecole).reduce(function (s, u) { const x = df.eleves_par_ecole[u][annee]; return s + (x && x[n] != null ? x[n] : 0); }, 0);
+      });
+      repartirEntier(l.elem, poids).forEach(function (v, i) { r[ELEMENTAIRE[i]] = v; });
+    }
+    return r;
+  }
+
+  /** Élèves d'une école pour une rentrée fictive ; rentrée suivant la dernière publiée : tendance prolongée. */
+  function elevesEcole(ref, uai, annee) {
+    const pub = ref.donnees_fictives.annees;
+    if (pub.indexOf(String(annee)) >= 0) return elevesPublies(ref, uai, String(annee));
+    const der = pub[pub.length - 1], avant = pub[pub.length - 2];
+    if (+annee !== +der + 1) throw new Error('Rentrée ' + annee + ' hors des données fictives.');
+    const v1 = elevesPublies(ref, uai, der), v0 = elevesPublies(ref, uai, avant), r = {};
+    NIVEAUX.forEach(function (n) { r[n] = Math.max(0, 2 * v1[n] - v0[n]); });   // 2025 + (2025 − 2024), jamais négatif
+    return r;
+  }
+
+  /** Effectifs FICTIFS par îlot et par rentrée, au format de l'import : {ilot: {annee: {PS … CM2}}}. */
+  function genererFictif(ref, graine) {
+    const alea = hasard(graine);
+    const ilots = ref.ilots.slice().sort(function (a, b) { return a.id < b.id ? -1 : 1; });
+    const poids = {};
+    ilots.forEach(function (i) { poids[i.id] = i.nb_adresses * (1 - ALEA_POIDS + 2 * ALEA_POIDS * alea()); });
+    const annees = anneesFictives(ref), effectifs = {};
+    ilots.forEach(function (i) {
+      effectifs[i.id] = {};
+      annees.forEach(function (a) { const v = {}; NIVEAUX.forEach(function (n) { v[n] = 0; }); effectifs[i.id][a] = v; });
+    });
+    let total = 0;
+    const tirer = function (ids, nombre, annee, niveau) {   // chaque enfant tiré dans un îlot, selon les poids
+      if (!ids.length || !nombre) return;
+      const cumul = [];
+      ids.reduce(function (s, id) { s += poids[id]; cumul.push(s); return s; }, 0);
+      const somme = cumul[cumul.length - 1];
+      for (let k = 0; k < nombre; k++) {
+        const u = alea() * somme;
+        let bas = 0, haut = cumul.length - 1;
+        while (bas < haut) { const m = (bas + haut) >> 1; if (cumul[m] > u) haut = m; else bas = m + 1; }
+        effectifs[ids[bas]][annee][niveau]++;
+      }
+      total += nombre;
+    };
+    ref.ecoles.forEach(function (e) {
+      // Îlots du secteur de l'école (carte de démarrage) : ceux dont le couple a cette école pour maternelle (PS-GS)
+      // ou pour élémentaire (CP-CM2).
+      const secteur = function (cote) {
+        return ilots.filter(function (i) { const c = couple(ref, i.demarrage.couple); return c && c[cote] === e.uai; }).map(function (i) { return i.id; });
+      };
+      const mat = secteur('mat'), elem = secteur('elem');
+      annees.forEach(function (a) {
+        const eleves = elevesEcole(ref, e.uai, a);
+        MATERNELLE.forEach(function (n) { tirer(mat, eleves[n], a, n); });
+        ELEMENTAIRE.forEach(function (n) { tirer(elem, eleves[n], a, n); });
+      });
+    });
+    return { effectifs: effectifs, annees: annees, graine: graine, total: total };
+  }
+
+  // Capacités FICTIVES (décision 135) : élèves par classe donnés par le porteur (toutes les écoles du quartier en REP :
+  // GS, CP, CE1 dédoublés à 15 ; 25 dans les autres niveaux). Hypothèse : autant de classes à chaque niveau de l'école.
+  const ELEVES_PAR_CLASSE = { PS: 25, MS: 25, GS: 15, CP: 15, CE1: 15, CE2: 25, CM1: 25, CM2: 25 };
+
+  /** {uai: {capacite, classes, elevesParClasse, origine}} : classes retenues × élèves par classe moyens des niveaux de l'école. */
+  function capacitesFictives(ref) {
+    const out = {};
+    ref.ecoles.forEach(function (e) {
+      const niveaux = (e.maternelle ? MATERNELLE : []).concat(e.elementaire ? ELEMENTAIRE : []);
+      const moyenne = niveaux.reduce(function (s, n) { return s + ELEVES_PAR_CLASSE[n]; }, 0) / niveaux.length;
+      const c = ref.donnees_fictives.classes[e.uai];
+      out[e.uai] = { capacite: Math.round(c.classes * moyenne), classes: c.classes, elevesParClasse: Math.round(moyenne * 100) / 100, origine: c.origine };
+    });
+    return out;
+  }
+
+  function versCsvCapacitesFictives(ref) {
+    const c = capacitesFictives(ref);
+    return versCsv([['uai', 'ecole', 'capacite', 'source']].concat(ref.ecoles.map(function (e) {
+      return [e.uai, nomEcole(e), c[e.uai].capacite, 'FICTIF – ' + c[e.uai].classes + ' classes (' + c[e.uai].origine + ')'];
+    })));
+  }
+
+  /** Jeu fictif au format de l'import, avec une colonne « source » qui le signale à la réimportation. */
+  function versCsvFictif(effectifs, libelle) {
+    const lignes = [['ilot', 'annee'].concat(NIVEAUX, ['source'])];
+    Object.keys(effectifs).sort().forEach(function (id) {
+      Object.keys(effectifs[id]).sort().forEach(function (a) {
+        lignes.push([id, a].concat(NIVEAUX.map(function (n) { return effectifs[id][a][n]; }), ['FICTIF – ' + libelle]));
+      });
+    });
+    return versCsv(lignes);
+  }
+
+  /** Modèle des effectifs : une ligne par îlot pour l'année donnée, cases vides à remplir. */
+  function modeleEffectifs(ilots, annee) {
+    return versCsv([['ilot', 'annee'].concat(NIVEAUX)].concat(ilots.map(function (i) {
+      return [i.id, annee].concat(NIVEAUX.map(function () { return ''; }));
+    })));
+  }
+
+  function modeleCapacites(ecoles) {
+    return versCsv([['uai', 'ecole', 'capacite']].concat(ecoles.map(function (e) { return [e.uai, nomEcole(e), '']; })));
+  }
+
+  // ------------------------------------------------------------------ brique 3 : sectorisation par couples
+  // Décision 104 : un îlot est affecté à un COUPLE d'écoles — un groupe scolaire, ou une maternelle et
+  // l'élémentaire qui lui correspond (un enfant de grande section en maternelle X va au CP de
+  // l'élémentaire X). Les enfants de PS à GS de l'îlot vont à la maternelle du couple, ceux de CP à CM2
+  // à son élémentaire. Affectations : {ilot: identifiant du couple}.
+  const NIVEAU_LIBELLE = { mat: 'maternelle', elem: 'élémentaire' };
+  const SEUILS = { bas: 0.9, haut: 1.0 };    // décision 100 : < 90 %, 90 à 100 %, > 100 %
+
+  function couple(ref, id) { return ref.couples.filter(function (c) { return c.id === id; })[0] || null; }
+
+  /** Nom d'un couple, écrit comme les écoles (demande du porteur, 17/11/2026) : « NUITS (mat.) et MONTAUD (ele.) » ;
+   *  un groupe scolaire est seul : « MARIE DE GOURNAY (GS) ». Accepte le couple ou son identifiant. */
+  function nomCouple(ref, c) {
+    if (typeof c === 'string') c = couple(ref, c);
+    if (!c) return '';
+    const ecole = function (u) { return ref.ecoles.filter(function (e) { return e.uai === u; })[0]; };
+    const m = ecole(c.mat), el = ecole(c.elem);
+    if (c.mat === c.elem) return m ? nomEcole(m) : c.nom;
+    return m && el ? nomEcole(m) + ' et ' + nomEcole(el) : c.nom;
+  }
+
+  function affectationsDemarrage(ref) {
+    const a = {};
+    ref.ilots.forEach(function (i) { a[i.id] = i.demarrage.couple; });
+    return a;
+  }
+
+  /** Couples proposés pour un îlot : ceux de son secteur commun d'abord (s'il y en a), puis les autres. */
+  function couplesProposes(ref, ilotId) {
+    const ilot = ref.ilots.filter(function (i) { return i.id === ilotId; })[0];
+    const secteur = (ilot && ilot.demarrage.candidats) || [];
+    return { secteur: ref.couples.filter(function (c) { return secteur.indexOf(c.id) >= 0; }),
+      autres: ref.couples.filter(function (c) { return secteur.indexOf(c.id) < 0; }) };
+  }
+
+  /** Change le couple d'un îlot (rend de nouvelles affectations, sans toucher aux anciennes). */
+  function deplacer(affectations, ref, ilotId, coupleId) {
+    if (!(ilotId in affectations)) throw new Error('Îlot inconnu : ' + ilotId);
+    if (!couple(ref, coupleId)) throw new Error('Couple d’écoles inconnu : ' + coupleId);
+    const n = Object.assign({}, affectations);
+    n[ilotId] = coupleId;
+    return n;
+  }
+
+  // ------------------------------------------------------------------ brique 5 : effectifs et impact
+  /**
+   * Effectif de chaque école pour une année : PS à GS des îlots dont le couple a cette école pour
+   * maternelle, CP à CM2 des îlots dont le couple l'a pour élémentaire (un groupe scolaire reçoit les deux).
+   * Îlots sans effectifs pour cette année : comptés à part (effectif inconnu, pas zéro).
+   */
+  function effectifsEcoles(affectations, effectifs, ref, annee) {
+    const res = {};
+    ref.ecoles.forEach(function (e) {
+      const niveaux = {};
+      NIVEAUX.forEach(function (n) { niveaux[n] = 0; });
+      res[e.uai] = { niveaux: niveaux, total: 0, ilots: 0, ilotsSansDonnees: 0, _ilots: {}, _sans: {} };
+    });
+    Object.keys(affectations).forEach(function (ilot) {
+      const c = couple(ref, affectations[ilot]);
+      if (!c) return;
+      const v = effectifs && effectifs[ilot] && effectifs[ilot][annee];
+      [[c.mat, MATERNELLE], [c.elem, ELEMENTAIRE]].forEach(function (p) {
+        const r = res[p[0]];
+        if (!r) return;
+        r._ilots[ilot] = true;
+        if (!v) { r._sans[ilot] = true; return; }
+        p[1].forEach(function (cl) { r.niveaux[cl] += v[cl]; r.total += v[cl]; });
+      });
+    });
+    Object.keys(res).forEach(function (u) {
+      res[u].ilots = Object.keys(res[u]._ilots).length;
+      res[u].ilotsSansDonnees = Object.keys(res[u]._sans).length;
+      delete res[u]._ilots; delete res[u]._sans;
+    });
+    return { ecoles: res };
+  }
+
+  /** Taux de remplissage et classe (décision 100). Capacité absente : null. */
+  function remplissage(effectif, capacite) {
+    if (!capacite) return null;
+    const taux = effectif / capacite;
+    const classe = taux < SEUILS.bas ? 'moins de 90 %' : (taux <= SEUILS.haut ? '90 à 100 %' : 'plus de 100 %');
+    return { taux: taux, classe: classe, ecart: capacite - effectif };
+  }
+
+  /**
+   * Évolution sur une plage de rentrées (demande du porteur, 17/11/2026), pour chaque école : effectif de la carte de
+   * démarrage et effectif actuel, remplissage actuel, îlots sans effectifs ; puis l'évolution de l'effectif actuel
+   * entre la première et la dernière rentrée de la plage.
+   */
+  function evolution(affectations, effectifs, ref, capacites, annees) {
+    const depart = affectationsDemarrage(ref), res = {};
+    ref.ecoles.forEach(function (e) { res[e.uai] = { capacite: (capacites && capacites[e.uai]) || null, annees: {} }; });
+    annees.forEach(function (a) {
+      const d = effectifsEcoles(depart, effectifs, ref, a), x = effectifsEcoles(affectations, effectifs, ref, a);
+      ref.ecoles.forEach(function (e) {
+        const u = e.uai;
+        res[u].annees[a] = { depart: d.ecoles[u].total, actuel: x.ecoles[u].total, sans: x.ecoles[u].ilotsSansDonnees,
+          remplissage: remplissage(x.ecoles[u].total, res[u].capacite) };
+      });
+    });
+    ref.ecoles.forEach(function (e) {
+      const r = res[e.uai], p = r.annees[annees[0]], q = r.annees[annees[annees.length - 1]];
+      r.variation = annees.length > 1 ? q.actuel - p.actuel : null;
+      r.variationPct = annees.length > 1 && p.actuel ? (q.actuel - p.actuel) / p.actuel : null;
+    });
+    return res;
+  }
+
+  /** Écoles touchées par le passage d'un îlot du couple `de` au couple `vers` (maternelles et élémentaires). */
+  function ecolesTouchees(ref, de, vers) {
+    const u = [];
+    [couple(ref, de), couple(ref, vers)].forEach(function (c) {
+      if (!c) return;
+      [c.mat, c.elem].forEach(function (x) { if (u.indexOf(x) < 0) u.push(x); });
+    });
+    return u;
+  }
+
+  /** Lignes « avant / après » pour les écoles données, une année. */
+  function impact(avant, apres, effectifs, ref, capacites, annee, uais) {
+    const ea = effectifsEcoles(avant, effectifs, ref, annee);
+    const eb = effectifsEcoles(apres, effectifs, ref, annee);
+    return uais.filter(Boolean).map(function (u) {
+      const cap = capacites ? capacites[u] : undefined;
+      return { uai: u, avant: ea.ecoles[u], apres: eb.ecoles[u], capacite: cap || null,
+        remplissageAvant: remplissage(ea.ecoles[u].total, cap), remplissageApres: remplissage(eb.ecoles[u].total, cap) };
+    });
+  }
+
+  // ------------------------------------------------------------------ décision 110 : secteurs d'un seul tenant
+  /** Voisinage (calculé à la préparation des données) : îlots qui se touchent et petites surfaces sans adresse. */
+  function liens(ref) {
+    const l = {};
+    ref.ilots.forEach(function (i) { l[i.id] = i.voisins || []; });
+    ((ref.fond && ref.fond.sans_adresse) || []).forEach(function (s) { if (s.id) l[s.id] = s.voisins || []; });
+    return l;
+  }
+
+  /** Pour chaque couple, ses îlots en morceaux d'un seul tenant (le plus grand d'abord). On passe d'un îlot du
+   *  couple à un autre par les rues et les petites surfaces sans adresse, jamais par un îlot d'un autre couple. */
+  function morceaux(affectations, ref) {
+    const l = liens(ref), res = {};
+    const parCouple = {};
+    Object.keys(affectations).forEach(function (k) { (parCouple[affectations[k]] = parCouple[affectations[k]] || {})[k] = true; });
+    Object.keys(parCouple).sort().forEach(function (c) {
+      const reste = parCouple[c];
+      res[c] = [];
+      Object.keys(reste).sort().forEach(function (depart) {
+        if (!reste[depart]) return;
+        const bloc = [], vus = {}, pile = [depart];
+        delete reste[depart]; vus[depart] = true;
+        while (pile.length) {
+          const k = pile.pop();
+          if (k.indexOf('SA-') !== 0) bloc.push(k);
+          (l[k] || []).forEach(function (v) {
+            if (vus[v]) return;
+            if (reste[v]) { delete reste[v]; vus[v] = true; pile.push(v); }
+            else if (v.indexOf('SA-') === 0) { vus[v] = true; pile.push(v); }
+          });
+        }
+        res[c].push(bloc.sort());
+      });
+      res[c].sort(function (a, b) { return b.length - a.length || (a[0] < b[0] ? -1 : 1); });
+    });
+    return res;
+  }
+
+  /** Enclaves : groupes d'îlots détachés du plus grand morceau de leur couple et qui touchent un îlot d'un
+   *  autre couple. Un groupe entouré seulement de grandes surfaces sans adresse n'en est pas une. */
+  function enclaves(affectations, ref) {
+    const l = liens(ref), out = [];
+    const m = morceaux(affectations, ref);
+    Object.keys(m).forEach(function (c) {
+      m[c].slice(1).forEach(function (bloc) {
+        const autres = {};
+        bloc.forEach(function (k) { (l[k] || []).forEach(function (v) { if (v in affectations && affectations[v] !== c) autres[affectations[v]] = true; }); });
+        if (Object.keys(autres).length) out.push({ couple: c, ilots: bloc, voisins: Object.keys(autres).sort() });
+      });
+    });
+    return out;
+  }
+
+  /** Couples contigus à un îlot (décision 111) : ceux des îlots qui le touchent, directement ou par une même
+   *  petite surface sans adresse (terre-plein, îlot de carrefour) — un seul saut, pour rester au voisinage
+   *  immédiat. Contient le couple actuel de l'îlot s'il touche un îlot du même couple. */
+  function couplesContigus(affectations, ref, ilotId) {
+    const l = liens(ref), trouves = {};
+    (l[ilotId] || []).forEach(function (v) {
+      if (v.indexOf('SA-') === 0) {
+        (l[v] || []).forEach(function (w) { if (w !== ilotId && w in affectations) trouves[affectations[w]] = true; });
+      } else if (v in affectations) trouves[affectations[v]] = true;
+    });
+    return ref.couples.filter(function (c) { return trouves[c.id]; });
+  }
+
+  /** Un déplacement est permis (décision 111) si le couple visé est contigu à l'îlot et s'il ne crée aucune
+   *  enclave nouvelle (aucun îlot isolé des autres îlots de son secteur). */
+  function verifierDeplacement(affectations, ref, ilotId, coupleId) {
+    if (affectations[ilotId] === coupleId) return { ok: false, raison: 'L’îlot ' + ilotId + ' est déjà dans ce secteur.' };
+    if (!couplesContigus(affectations, ref, ilotId).some(function (c) { return c.id === coupleId; })) {
+      return { ok: false, raison: 'Refusé : le secteur « ' + nomCouple(ref, coupleId) + ' » ne touche pas l’îlot ' + ilotId + ' (seuls les secteurs contigus sont permis).' };
+    }
+    const cle = function (e) { return e.couple + ':' + e.ilots.join(','); };
+    const avant = {};
+    enclaves(affectations, ref).forEach(function (e) { avant[cle(e)] = true; });
+    const nouvelles = enclaves(deplacer(affectations, ref, ilotId, coupleId), ref).filter(function (e) { return !avant[cle(e)]; });
+    if (nouvelles.length) {
+      return { ok: false, raison: 'Refusé : ce changement isolerait ' + nouvelles.map(function (e) {
+        return e.ilots.join(', ') + ' (' + nomCouple(ref, e.couple) + ')';
+      }).join(' ; ') + ' du reste de son secteur.' };
+    }
+    return { ok: true, raison: '' };
+  }
+
+  /** Impacts sur les effectifs, à enregistrer : une ligne par école et par année du fichier des effectifs. */
+  function versCsvImpacts(affectations, effectifs, ref, capacites) {
+    const annees = Array.from(new Set([].concat.apply([], Object.values(effectifs || {}).map(Object.keys)))).sort();
+    const depart = affectationsDemarrage(ref);
+    const lignes = [['annee_rentree', 'uai', 'ecole', 'capacite', 'effectif_demarrage', 'effectif_actuel', 'variation']
+      .concat(NIVEAUX.map(function (n) { return n + '_actuel'; }))
+      .concat(['ecart_capacite_actuel', 'remplissage_actuel', 'ilots_sans_effectifs_actuel'])];
+    annees.forEach(function (a) {
+      const d = effectifsEcoles(depart, effectifs, ref, a), e = effectifsEcoles(affectations, effectifs, ref, a);
+      ref.ecoles.forEach(function (ec) {
+        const cap = capacites ? capacites[ec.uai] : null;
+        const r = remplissage(e.ecoles[ec.uai].total, cap);
+        lignes.push([a, ec.uai, nomEcole(ec), cap || '', d.ecoles[ec.uai].total, e.ecoles[ec.uai].total, e.ecoles[ec.uai].total - d.ecoles[ec.uai].total]
+          .concat(NIVEAUX.map(function (n) {
+            const enseigne = MATERNELLE.indexOf(n) >= 0 ? ec.maternelle : ec.elementaire;
+            return enseigne ? e.ecoles[ec.uai].niveaux[n] : '';
+          }))
+          .concat([r ? r.ecart : '', r ? Math.round(r.taux * 100) + ' % (' + r.classe + ')' : '', e.ecoles[ec.uai].ilotsSansDonnees]));
+      });
+    });
+    return versCsv(lignes);
+  }
+
+  // ------------------------------------------------------------------ brique 4 : sauvegarde (fichiers)
+  const TYPE_SCENARIO = 'prospective-scolaire-scenario';
+
+  /** Le fichier ne contient que les affectations des îlots (aucun effectif : décision 99). */
+  function versScenario(affectations, ref, date) {
+    return JSON.stringify({ type: TYPE_SCENARIO, v: 2, quartier: ref.quartier,
+      enregistre: (date || new Date()).toISOString(), affectations: affectations }, null, 1);
+  }
+
+  /** Contrôle des affectations lues ({ilot: couple}) ; îlots absents : carte de démarrage. */
+  function appliquerAffectations(lues, ref, prefixe) {
+    const depart = affectationsDemarrage(ref);
+    const erreurs = [];
+    let absents = 0;
+    Object.keys(lues).forEach(function (ilot) {
+      if (!(ilot in depart)) erreurs.push('Îlot ' + ilot + ' inconnu.');
+      else if (!couple(ref, lues[ilot])) erreurs.push('Îlot ' + ilot + ' : couple d’écoles « ' + lues[ilot] + ' » inconnu.');
+      else depart[ilot] = lues[ilot];
+    });
+    Object.keys(depart).forEach(function (ilot) { if (!(ilot in lues)) absents++; });
+    if (erreurs.length) throw new Error(prefixe + erreurs.slice(0, 5).join(' ') + (erreurs.length > 5 ? ' (et ' + (erreurs.length - 5) + ' autres)' : ''));
+    return { affectations: depart, absents: absents };
+  }
+
+  function lireScenario(texte, ref) {
+    let o;
+    try { o = JSON.parse(texte); } catch (e) { throw new Error('Ce fichier n’est pas une sectorisation enregistrée par cette application.'); }
+    if (!o || o.type !== TYPE_SCENARIO || o.v !== 2 || !o.affectations) throw new Error('Ce fichier n’est pas une sectorisation enregistrée par cette application.');
+    if (o.quartier !== ref.quartier) throw new Error('Cette sectorisation concerne « ' + o.quartier + ' », pas ' + ref.quartier + '.');
+    const r = appliquerAffectations(o.affectations, ref, 'Fichier refusé : ');
+    r.enregistre = o.enregistre;
+    return r;
+  }
+
+  /** Export pour tableur : une ligne par îlot ; le code du couple fait foi, les noms aident à la lecture. */
+  function versCsvSectorisation(affectations, ref) {
+    const nom = function (u) { const e = ref.ecoles.filter(function (x) { return x.uai === u; })[0]; return e ? nomEcole(e) : ''; };
+    return versCsv([['ilot', 'nb_adresses', 'couple', 'nom_couple', 'ecole_maternelle', 'ecole_elementaire']].concat(
+      ref.ilots.map(function (i) {
+        const c = couple(ref, affectations[i.id]);
+        return [i.id, i.nb_adresses, c.id, nomCouple(ref, c), nom(c.mat), nom(c.elem)];
+      })));
+  }
+
+  /** Relecture d'un export CSV ou Excel (éventuellement modifié dans un tableur : colonne « couple »). */
+  function lireSectorisationTableau(table, ref) {
+    const r = reperer(table.colonnes, ['ilot', 'couple']);
+    if (r.manquantes.length) throw new Error('Colonnes absentes : ' + r.manquantes.join(', ') + '. Partez d’un fichier exporté par cette application.');
+    const lues = {}, erreurs = [], vus = {};
+    table.lignes.forEach(function (l) {
+      const c = function (n) { return String(l.cellules[r.idx[n]] == null ? '' : l.cellules[r.idx[n]]).trim(); };
+      const ilot = c('ilot').toUpperCase(), cp = c('couple').toLowerCase();
+      if (vus[ilot]) erreurs.push('Ligne ' + l.numero + ' : îlot ' + ilot + ' en double.');
+      else if (!cp) erreurs.push('Ligne ' + l.numero + ' : îlot ' + ilot + ' sans couple d’écoles (tout îlot doit être affecté).');
+      else { vus[ilot] = true; lues[ilot] = cp; }
+    });
+    if (erreurs.length) throw new Error('Fichier refusé : ' + erreurs.slice(0, 5).join(' '));
+    return appliquerAffectations(lues, ref, 'Fichier refusé : ');
+  }
+
+  // ------------------------------------------------------------------ carte
+  /** Projection plane locale (nord en haut) calée sur les îlots ; chemins des îlots, du fond et des écoles. */
+  function projeterIlots(ref, largeur) {
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    ref.ilots.forEach(function (i) { i.contour.forEach(function (r) { r.forEach(function (p) {
+      if (p[0] < minX) minX = p[0]; if (p[0] > maxX) maxX = p[0]; if (p[1] < minY) minY = p[1]; if (p[1] > maxY) maxY = p[1];
+    }); }); });
+    const kx = Math.cos((minY + maxY) / 2 * Math.PI / 180);
+    const echelle = largeur / ((maxX - minX) * kx);
+    const hauteur = Math.round((maxY - minY) * echelle);
+    const pt = function (p) { return ((p[0] - minX) * kx * echelle).toFixed(1) + ',' + ((maxY - p[1]) * echelle).toFixed(1); };
+    const polygone = function (anneaux) { return anneaux.map(function (r) { return 'M' + r.map(pt).join('L') + 'Z'; }).join(''); };
+    const ligne = function (l) { return 'M' + l.map(pt).join('L'); };
+    const fond = ref.fond || { voies: [], voies_ferrees: [], sans_adresse: [], espaces_verts: [] };
+    const chemins = {};
+    ref.ilots.forEach(function (i) { chemins[i.id] = polygone(i.contour); });
+    return { largeur: largeur, hauteur: hauteur, chemins: chemins,
+      voies: fond.voies.map(ligne).join(''), voiesFerrees: fond.voies_ferrees.map(ligne).join(''),
+      sansAdresse: fond.sans_adresse.map(function (s) { return { d: polygone(s.contour), espaceVert: s.espace_vert }; }),
+      espacesVerts: polygone(fond.espaces_verts || []),
+      point: function (lon, lat) { const s = pt([lon, lat]).split(','); return { x: +s[0], y: +s[1] }; } };
+  }
+
+  return {
+    NIVEAU_LIBELLE: NIVEAU_LIBELLE,
+    couple: couple,
+    nomCouple: nomCouple,
+    affectationsDemarrage: affectationsDemarrage,
+    couplesProposes: couplesProposes,
+    deplacer: deplacer,
+    effectifsEcoles: effectifsEcoles,
+    remplissage: remplissage,
+    ecolesTouchees: ecolesTouchees,
+    evolution: evolution,
+    impact: impact,
+    versScenario: versScenario,
+    lireScenario: lireScenario,
+    versCsvSectorisation: versCsvSectorisation,
+    lireSectorisationTableau: lireSectorisationTableau,
+    morceaux: morceaux,
+    enclaves: enclaves,
+    couplesContigus: couplesContigus,
+    verifierDeplacement: verifierDeplacement,
+    versCsvImpacts: versCsvImpacts,
+    projeterIlots: projeterIlots,
+    ITERATIONS: ITERATIONS,
+    JEUX_FICTIFS: JEUX_FICTIFS,
+    hasard: hasard,
+    repartirEntier: repartirEntier,
+    anneesFictives: anneesFictives,
+    elevesEcole: elevesEcole,
+    genererFictif: genererFictif,
+    versCsvFictif: versCsvFictif,
+    ELEVES_PAR_CLASSE: ELEVES_PAR_CLASSE,
+    capacitesFictives: capacitesFictives,
+    versCsvCapacitesFictives: versCsvCapacitesFictives,
+    LONGUEUR_MDP_MIN: LONGUEUR_MDP_MIN,
+    FORMAT_IDENTIFIANT: FORMAT_IDENTIFIANT,
+    normaliserIdentifiant: normaliserIdentifiant,
+    verifierComptes: verifierComptes,
+    NIVEAUX: NIVEAUX,
+    MATERNELLE: MATERNELLE,
+    ELEMENTAIRE: ELEMENTAIRE,
+    chiffrer: chiffrer,
+    dechiffrer: dechiffrer,
+    lireZip: lireZip,
+    lireXlsx: lireXlsx,
+    lireTableau: lireTableau,
+    entier: entier,
+    rentreeEnCours: rentreeEnCours,
+    validerEffectifs: validerEffectifs,
+    validerCapacites: validerCapacites,
+    nomEcole: nomEcole,
+    modeleEffectifs: modeleEffectifs,
+    modeleCapacites: modeleCapacites
+  };
+}));
+
+/*
+ * Prospective scolaire — affichage (briques 1 et 2 ; décisions 97 à 102 du journal DATA_PUBLIQUE_Bx).
+ * La logique testée est dans prospective.js (objet Prospective).
+ *
+ * Accessibilité (RGAA AA, pré-audit technique) : champs identifiant et mot de passe étiquetés, erreur reliée
+ * aux champs et annoncée (role="alert"), comptes rendus d'import annoncés (aria-live), titres de sections,
+ * tout au clavier, liste des écoles en tableau.
+ *
+ * Rien n'est enregistré : identifiant, mot de passe, données déchiffrées et fichiers importés restent en mémoire
+ * le temps de la visite (fermer ou recharger la page efface tout ; bouton « Verrouiller »).
+ */
+(function () {
+  'use strict';
+  const P = window.Prospective;
+  const CC = window.OutilsFichiers;   // lecture CSV et échappement (src/outils_fichiers.js)
+  const esc = CC.echapper;
+  const etat = { ref: null, effectifs: null, capacites: null, affectations: null, historique: [], derniere: null,
+    ilotSel: null, annee: null, projection: null, fictif: null, jeuFictif: null, capFictives: false, plage: null };
+
+  function $(id) { return document.getElementById(id); }
+
+  function telecharger(texte, nom) {
+    const url = URL.createObjectURL(new Blob([texte], { type: 'text/csv;charset=utf-8' }));
+    const a = document.createElement('a');
+    a.href = url; a.download = nom;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+
+  function contenu() { return document.getElementById('content'); }
+
+  function entete() {
+    return '<h2 class="cc-titre-carte" id="pr-titre" tabindex="-1">La Bastide</h2>' +
+      '<p class="cc-sous-titre">Îlots, secteurs scolaires, effectifs et capacités</p>';
+  }
+
+  // ------------------------------------------------------------------ brique 1 : accès
+  function afficherVerrou() {
+    const c = contenu();
+    if (!FICHIER_DONNEES) {
+      c.innerHTML = '<div class="panel card pr">' + entete() +
+        '<p class="def-text" role="status">Cette application n’est pas encore activée : aucun compte n’a été défini à sa génération.</p></div>';
+      return;
+    }
+    c.innerHTML = '<div class="panel card pr">' + entete() +
+      '<form id="pr-form" novalidate>' +
+      '<label for="pr-id">Identifiant</label>' +
+      '<input type="text" id="pr-id" name="username" autocomplete="username" autocapitalize="characters" spellcheck="false" aria-describedby="pr-id-aide pr-mdp-err">' +
+      '<p class="cc-aide" id="pr-id-aide">Majuscules ou minuscules, indifféremment.</p>' +
+      '<label for="pr-mdp">Mot de passe</label>' +
+      '<input type="password" id="pr-mdp" name="password" autocomplete="current-password" aria-describedby="pr-mdp-aide pr-mdp-err">' +
+      '<p class="cc-aide" id="pr-mdp-aide">Votre identifiant et votre mot de passe vous sont donnés personnellement par la mission data/IA ' +
+      'de la Ville de Bordeaux : ne les communiquez à personne. L’application ne les envoie ni ne les enregistre : ils servent à déchiffrer ' +
+      'les données dans ce navigateur. Votre navigateur peut proposer de les retenir : acceptez seulement sur votre poste de travail personnel.</p>' +
+      '<p class="cc-erreur" id="pr-mdp-err" role="alert"></p>' +
+      '<p class="cc-aide" id="pr-attente" role="status"></p>' +
+      '<div class="cc-actions"><button type="submit" class="cc-bouton cc-principal" id="pr-ouvrir">Ouvrir</button></div>' +
+      '</form></div>';
+    $('pr-form').addEventListener('submit', function (ev) { ev.preventDefault(); ouvrir(); });
+  }
+
+  // champ : 'pr-id' ou 'pr-mdp' (le champ en cause reçoit le focus) ; les deux si la connexion est refusée.
+  function erreurMdp(message, champ) {
+    $('pr-attente').textContent = '';
+    $('pr-ouvrir').disabled = false;
+    ['pr-id', 'pr-mdp'].forEach(function (c) {
+      if (!champ || c === champ) $(c).setAttribute('aria-invalid', 'true'); else $(c).removeAttribute('aria-invalid');
+    });
+    $('pr-mdp-err').textContent = message;
+    $(champ || 'pr-mdp').focus();
+  }
+
+  function ouvrir() {
+    const id = P.normaliserIdentifiant($('pr-id').value), mdp = $('pr-mdp').value;
+    $('pr-mdp-err').textContent = '';
+    if (!id) { erreurMdp('Saisissez votre identifiant.', 'pr-id'); return; }
+    if (!mdp) { erreurMdp('Saisissez le mot de passe.', 'pr-mdp'); return; }
+    $('pr-ouvrir').disabled = true;
+    $('pr-attente').textContent = 'Vérification du mot de passe…';
+    chargerScript(FICHIER_DONNEES, function (err) {
+      if (err || !window.PROSPECTIVE_CHIFFRE) { erreurMdp('Les données de l’application n’ont pas pu être chargées (connexion interrompue ?). Réessayez.'); return; }
+      P.dechiffrer(window.PROSPECTIVE_CHIFFRE, id, mdp).then(function (ref) {
+        proposerMemorisation(id, mdp);
+        etat.ref = ref;
+        afficherMenu();
+      }, function (e) { erreurMdp(e.message); });
+    });
+  }
+
+  // Connexion réussie : la page ne se recharge pas, le navigateur ne le devine pas toujours. On la lui signale
+  // (Credential Management, Edge et Chrome) pour qu'il PROPOSE de retenir l'identifiant et le mot de passe (demande du
+  // porteur, 17/11/2026). C'est le gestionnaire de mots de passe du navigateur qui les garde, jamais l'application.
+  function proposerMemorisation(id, mdp) {
+    try {
+      if (window.PasswordCredential && navigator.credentials && navigator.credentials.store) {
+        navigator.credentials.store(new window.PasswordCredential({ id: id, password: mdp, name: 'Prospective scolaire de Bordeaux' }))
+          .catch(function () { /* refus ou navigateur sans gestionnaire : sans conséquence */ });
+      }
+    } catch (e) { /* page ouverte depuis un fichier (file://) : non disponible */ }
+  }
+
+  function verrouiller() {
+    etat.ref = null; etat.effectifs = null; etat.capacites = null; etat.affectations = null; etat.historique = [];
+    etat.derniere = null; etat.ilotSel = null; etat.annee = null; etat.projection = null; etat.fictif = null; etat.jeuFictif = null; etat.capFictives = false; etat.plage = null;
+    afficherVerrou();
+    const m = $('pr-id');
+    if (m) m.focus();
+  }
+
+  // ------------------------------------------------------------------ brique 2 : import
+  function sectionImport(cle, numero, titre, aide, libelleFichier, libelleModele) {
+    return '<section class="pr-section" aria-labelledby="pr-h-' + cle + '">' +
+      '<h3 id="pr-h-' + cle + '">' + numero + '. ' + esc(titre) + '</h3>' +
+      '<p class="cc-aide" id="pr-aide-' + cle + '">' + aide + '</p>' +
+      '<div class="cc-actions"><button type="button" class="cc-bouton" id="pr-modele-' + cle + '">' + esc(libelleModele) + '</button></div>' +
+      '<label for="pr-fichier-' + cle + '">' + esc(libelleFichier) + '</label>' +
+      '<input type="file" id="pr-fichier-' + cle + '" accept=".csv,.xlsx,.txt" aria-describedby="pr-aide-' + cle + ' pr-rapport-' + cle + '">' +
+      '<div class="cc-rapport" id="pr-rapport-' + cle + '" aria-live="polite"></div>' +
+      '</section>';
+  }
+
+  function tableauEcoles() {
+    const lignes = etat.ref.ecoles.map(function (e) {
+      const cap = etat.capacites && etat.capacites[e.uai];
+      const niveaux = e.maternelle && e.elementaire ? 'PS à CM2' : (e.maternelle ? 'PS à GS' : 'CP à CM2');
+      return '<tr><th scope="row">' + esc(P.nomEcole(e)) + '</th><td>' + esc(e.uai) + '</td><td>' + niveaux + '</td>' +
+        '<td>' + esc(e.adresse) + '</td><td class="pr-nombre">' + (cap ? cap.toLocaleString('fr-FR') : '<span class="pr-inconnu">non importée</span>') + '</td></tr>';
+    }).join('');
+    return '<table class="pr-table pr-table-ecoles"><caption>' + etat.ref.ecoles.length + ' écoles publiques de La Bastide (annuaire de l’Éducation nationale)</caption>' +
+      '<thead><tr><th scope="col">École</th><th scope="col">Code</th><th scope="col">Niveaux</th><th scope="col">Adresse</th><th scope="col">Capacité</th></tr></thead>' +
+      '<tbody>' + lignes + '</tbody></table>';
+  }
+
+  function afficherMenu() {
+    const r = etat.ref;
+    contenu().innerHTML = '<div class="panel card pr">' + entete() +
+      '<p class="pr-bandeau-fictif" id="pr-bandeau-fictif" role="status" hidden></p>' +
+      '<p class="def-text">' + r.ilots.length + ' îlots et ' + r.ecoles.length + ' écoles. ' +
+      '<strong>Vos fichiers restent dans ce navigateur</strong> : rien n’est envoyé ni enregistré. Fermer ou recharger la page efface tout.</p>' +
+      sectionImport('eff', 1, 'Effectifs par îlot',
+        'Une ligne par îlot et par année. Colonnes : <code>ilot</code> (ex. IL-00012), <code>annee</code> (année de rentrée, ex. 2025 pour 2025-2026 ; ' +
+        'années actuelles ou passées seulement), puis le nombre d’enfants en <code>PS</code>, <code>MS</code>, <code>GS</code>, <code>CP</code>, ' +
+        '<code>CE1</code>, <code>CE2</code>, <code>CM1</code>, <code>CM2</code> (0 s’il n’y en a aucun). Fichier CSV ou Excel (.xlsx). ' +
+        'Un fichier qui contient une erreur est refusé en entier, avec la liste des erreurs.',
+        'Fichier des effectifs', 'Télécharger le modèle des effectifs (CSV)') +
+      htmlFictif() +
+      sectionImport('cap', 2, 'Capacités des écoles',
+        'Une ligne par école. Colonnes : <code>uai</code> (code de l’école, donné dans le modèle), <code>ecole</code> (nom, pour vous repérer), ' +
+        '<code>capacite</code> (nombre maximal d’élèves de l’école, toutes années). Fichier CSV ou Excel (.xlsx).',
+        'Fichier des capacités', 'Télécharger le modèle des capacités (CSV)') +
+      htmlCapacitesFictives() +
+      '<section class="pr-section" aria-labelledby="pr-h-ecoles"><h3 id="pr-h-ecoles">3. Écoles</h3><div id="pr-ecoles">' + tableauEcoles() + '</div></section>' +
+      htmlSectorisation() + htmlImpact() +
+      '<div class="cc-actions"><button type="button" class="cc-bouton" id="pr-verrouiller">Verrouiller l’application</button></div>' +
+      htmlFiabilite() +
+      '</div>';
+    brancherSectorisation();
+    $('pr-modele-eff').addEventListener('click', function () {
+      telecharger(P.modeleEffectifs(r.ilots, P.rentreeEnCours()), 'modele_effectifs_ilots_la_bastide.csv');
+    });
+    $('pr-modele-cap').addEventListener('click', function () {
+      telecharger(P.modeleCapacites(r.ecoles), 'modele_capacites_ecoles_la_bastide.csv');
+    });
+    $('pr-fichier-eff').addEventListener('change', function (ev) { importer(ev.target, 'eff'); });
+    brancherFictif();
+    brancherCapacitesFictives();
+    $('pr-fichier-cap').addEventListener('change', function (ev) { importer(ev.target, 'cap'); });
+    $('pr-verrouiller').addEventListener('click', verrouiller);
+    $('pr-titre').focus();
+  }
+
+  // ------------------------------------------------------------------ briques 3 et 4 : sectorisation
+  // Un îlot est affecté à un couple d'écoles (décision 104) : la carte est la même pour la maternelle et
+  // l'élémentaire. Couleurs : palette Okabe-Ito (lisible par la plupart des personnes daltoniennes). La
+  // couleur n'est jamais seule : légende, liste des îlots par couple et fiche de l'îlot disent la même chose.
+  const COULEURS = {
+    'benauge': '#E69F00', 'nuits-montaud': '#56B4E9', 'nuyens': '#009E73', 'billie-holiday': '#F0E442',
+    'elsa-triolet': '#0072B2', 'franc-sanson': '#D55E00', 'marie-de-gournay': '#CC79A7', 'suzanne-martin': '#882255'
+  };
+  const LARGEUR_CARTE = 600;
+  const calques = { voies: true, ferrees: true, verts: true };
+
+  function ecole(uai) { return etat.ref.ecoles.filter(function (e) { return e.uai === uai; })[0]; }
+  function nomUai(uai) { return uai ? P.nomEcole(ecole(uai)) : '—'; }
+  function nomCouple(id) { const c = P.couple(etat.ref, id); return c ? P.nomCouple(etat.ref, c) : 'aucun'; }
+  function ilotRef(id) { return etat.ref.ilots.filter(function (i) { return i.id === id; })[0]; }
+
+  function htmlSectorisation() {
+    return '<section class="pr-section" aria-labelledby="pr-h-sect"><h3 id="pr-h-sect">4. Sectorisation</h3>' +
+      '<p class="cc-aide">Chaque îlot est affecté à un couple d’écoles : un groupe scolaire, ou une maternelle et l’élémentaire qui lui correspond ' +
+      '(un enfant de grande section de la maternelle X va au CP de l’élémentaire X). Carte de démarrage : carte scolaire 2015 de la Ville, corrigée ' +
+      'par les délibérations de 2024 et 2025 ; dans un secteur commun à plusieurs écoles, le couple le plus proche ; îlots sans école connue : ' +
+      'couple le plus proche de la majorité de leurs adresses. La fiche de chaque îlot dit d’où vient son affectation.</p>' +
+      '<fieldset class="pr-niveau"><legend>Fond de carte</legend>' +
+      '<label><input type="checkbox" id="pr-calque-voies" checked> Rues, impasses et passages</label>' +
+      '<label><input type="checkbox" id="pr-calque-ferrees" checked> Voies ferrées</label>' +
+      '<label><input type="checkbox" id="pr-calque-verts" checked> Parcs et jardins</label></fieldset>' +
+      '<div class="pr-carte-et-legende"><div class="pr-carte-cadre"><figure class="pr-carte" id="pr-carte"></figure>' +
+      '<div class="pr-menu" id="pr-menu" role="menu" aria-label="Réaffecter l’îlot" hidden></div>' +
+      '<div class="pr-infobulle" id="pr-infobulle" role="tooltip" hidden></div></div>' +
+      '<div class="pr-legende" id="pr-legende"></div></div>' +
+      '<div class="pr-fiche">' +
+      '<p class="pr-fiche-titre">Îlot choisi (clic ou clic droit sur la carte)</p>' +
+      '<div id="pr-ilot-info" class="pr-ilot-info"></div>' +
+      '<p class="cc-rapport-bilan" id="pr-statut" role="status"></p>' +
+      // Listes repliées (Q77, 17/11/2026) : le clic droit est le geste principal ; ces listes restent le moyen
+      // d'y arriver au clavier, au lecteur d'écran, sur tablette, et pour les très petits îlots (RGAA).
+      '<details class="pr-reaff" id="pr-reaff"><summary id="pr-reaff-titre">Réaffecter sans la souris (clavier, tablette, petits îlots)</summary>' +
+      '<label for="pr-ilot">Îlot</label><select id="pr-ilot"></select>' +
+      '<label for="pr-ecole">Nouveau couple d’écoles (secteurs contigus seulement)</label><select id="pr-ecole"></select>' +
+      '<div class="cc-actions"><button type="button" class="cc-bouton cc-principal" id="pr-affecter">Affecter l’îlot à ces écoles</button></div>' +
+      '</details>' +
+      '</div>' +
+      '<div class="pr-controle" id="pr-controle" aria-live="polite"></div>' +
+      '<div class="cc-actions">' +
+      '<button type="button" class="cc-bouton" id="pr-annuler" disabled>Annuler la dernière modification</button>' +
+      '<button type="button" class="cc-bouton" id="pr-reinit">Revenir à la carte de démarrage</button></div>' +
+      '<h4 id="pr-h-sauvegarde">Sauvegarder ou reprendre une sectorisation</h4>' +
+      '<p class="cc-aide" id="pr-aide-sauvegarde">Les fichiers ne contiennent que les affectations des îlots, jamais les effectifs. Le fichier CSV s’ouvre dans un tableur : ' +
+      'vous pouvez y changer la colonne <code>couple</code> (codes : ' + etat.ref.couples.map(function (c) { return '<code>' + esc(c.id) + '</code>'; }).join(', ') +
+      ') puis le réimporter.</p>' +
+      '<div class="cc-actions" role="group" aria-labelledby="pr-h-sauvegarde">' +
+      '<button type="button" class="cc-bouton" id="pr-enregistrer">Enregistrer (fichier de l’application, .json)</button>' +
+      '<button type="button" class="cc-bouton" id="pr-export-csv">Exporter pour tableur (.csv)</button>' +
+      '<button type="button" class="cc-bouton" id="pr-export-svg">Télécharger la carte (image .svg)</button></div>' +
+      '<label for="pr-fichier-scenario">Ouvrir une sectorisation enregistrée (.json, .csv ou .xlsx)</label>' +
+      '<input type="file" id="pr-fichier-scenario" accept=".json,.csv,.xlsx" aria-describedby="pr-aide-sauvegarde pr-rapport-scenario">' +
+      '<div class="cc-rapport" id="pr-rapport-scenario" aria-live="polite"></div>' +
+      '<details class="cc-tableau pr-liste"><summary>Liste des îlots par couple d’écoles (texte de la carte)</summary><div id="pr-liste-ilots"></div></details>' +
+      '</section>';
+  }
+
+  function dessinerCarte() {
+    const proj = etat.projection || (etat.projection = P.projeterIlots(etat.ref, LARGEUR_CARTE));
+    const aff = etat.affectations;
+    const nbVides = proj.sansAdresse.length;
+    let svg = '<svg viewBox="0 0 ' + proj.largeur + ' ' + proj.hauteur + '" role="img" aria-labelledby="pr-carte-titre">' +
+      '<title id="pr-carte-titre">Carte des ' + etat.ref.ilots.length + ' îlots de La Bastide colorés selon leur couple d’écoles ; ' + nbVides +
+      ' surfaces sans adresse hachurées en gris. Même information en texte dans la liste des îlots par couple.</title>' +
+      '<defs><pattern id="pr-h-vide" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">' +
+      '<rect width="6" height="6" fill="#f2f2f2"/><line x1="0" y1="0" x2="0" y2="6" stroke="#8a8a8a" stroke-width="1.5"/></pattern>' +
+      '<pattern id="pr-h-vert" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">' +
+      '<line x1="0" y1="0" x2="0" y2="7" stroke="#1b7a3a" stroke-width="2"/></pattern>' +
+      '<pattern id="pr-h-vide-vert" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">' +
+      '<rect width="6" height="6" fill="#dff0e3"/><line x1="0" y1="0" x2="0" y2="6" stroke="#1b7a3a" stroke-width="1.5"/></pattern></defs>';
+    proj.sansAdresse.forEach(function (s) {
+      svg += '<path class="pr-vide" d="' + s.d + '" fill-rule="evenodd" fill="url(#' + (s.espaceVert ? 'pr-h-vide-vert' : 'pr-h-vide') + ')" stroke="#bbbbbb" stroke-width="0.4"/>';
+    });
+    etat.ref.ilots.forEach(function (i) {
+      const c = aff[i.id];
+      svg += '<path data-ilot="' + esc(i.id) + '" d="' + proj.chemins[i.id] + '" fill-rule="evenodd" fill="' + (COULEURS[c] || '#bbbbbb') +
+        '" stroke="#ffffff" stroke-width="0.6"><title>' + esc(i.id + ' : ' + nomCouple(c)) + '</title></path>';
+    });
+    if (calques.verts && proj.espacesVerts) svg += '<path class="pr-verts" d="' + proj.espacesVerts + '" fill-rule="evenodd" fill="url(#pr-h-vert)" stroke="#1b7a3a" stroke-width="0.8" pointer-events="none"/>';
+    if (calques.voies) svg += '<path class="pr-voies" d="' + proj.voies + '" fill="none" stroke="#5f5f5f" stroke-width="0.7" pointer-events="none"/>';
+    if (calques.ferrees) svg += '<path class="pr-ferrees" d="' + proj.voiesFerrees + '" fill="none" stroke="#222222" stroke-width="1.6" stroke-dasharray="5 3" pointer-events="none"/>';
+    // Îlots changés de secteur par rapport à la carte de démarrage (demande du porteur, 17/11/2026) : contour
+    // en pointillés noirs doublé de blanc, lisible sur toutes les couleurs ; nombre dans la légende.
+    modifies().forEach(function (id) {
+      svg += '<path class="pr-modifie-fond" d="' + proj.chemins[id] + '" fill="none" stroke="#ffffff" stroke-width="3.6" pointer-events="none"/>' +
+        '<path class="pr-modifie" data-modifie="' + esc(id) + '" d="' + proj.chemins[id] + '" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="4 2.5" pointer-events="none"/>';
+    });
+    // Contour de l'îlot choisi, par-dessus tout, pour rester visible en entier.
+    if (etat.ilotSel) svg += '<path d="' + proj.chemins[etat.ilotSel] + '" fill="none" stroke="#000000" stroke-width="3" pointer-events="none"/>';
+    etat.ref.ecoles.forEach(function (e) {
+      const p = proj.point(e.lon, e.lat);
+      const c = etat.ref.couples.filter(function (x) { return x.mat === e.uai || x.elem === e.uai; })[0];
+      svg += '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="6" fill="' + (c ? COULEURS[c.id] : '#bbbbbb') +
+        '" stroke="#000000" stroke-width="2"><title>' + esc(P.nomEcole(e)) + '</title></circle>';
+    });
+    $('pr-carte').innerHTML = svg + '</svg><figcaption class="cc-aide">Ronds cerclés de noir : les écoles. Îlot choisi : contour noir épais. ' +
+      'Clic droit sur un îlot : menu pour le réaffecter à un secteur contigu (au clavier : listes « Îlot » et « Nouveau couple »).</figcaption>';
+  }
+
+  /** Îlots dont le couple actuel diffère de la carte de démarrage. */
+  function modifies() {
+    return etat.ref.ilots.filter(function (i) { return etat.affectations[i.id] !== i.demarrage.couple; }).map(function (i) { return i.id; });
+  }
+
+  function dessinerLegende() {
+    const aff = etat.affectations, compte = {};
+    Object.keys(aff).forEach(function (k) { compte[aff[k]] = (compte[aff[k]] || 0) + 1; });
+    const n = function (k) { return k + ' îlot' + (k > 1 ? 's' : ''); };
+    let h = '<p class="pr-legende-titre">Couples d’écoles</p><ul>';
+    etat.ref.couples.forEach(function (c) {
+      h += '<li><span class="pr-pastille" style="background:' + COULEURS[c.id] + '" aria-hidden="true"></span>' + esc(nomCouple(c.id)) + ' : ' + n(compte[c.id] || 0) + '</li>';
+    });
+    const vides = etat.ref.fond ? etat.ref.fond.sans_adresse : [];
+    const videsVerts = vides.filter(function (s) { return s.espace_vert; }).length;
+    h += '</ul><p class="pr-legende-titre">Fond de carte</p><ul>' +
+      '<li><span class="pr-pastille pr-pastille-vide" aria-hidden="true"></span>Surface sans adresse : ' + (vides.length - videsVerts) + '</li>' +
+      '<li><span class="pr-pastille pr-pastille-vide-vert" aria-hidden="true"></span>Surface sans adresse, espace vert : ' + videsVerts + '</li>' +
+      '<li><span class="pr-pastille pr-pastille-vert" aria-hidden="true"></span>Parc ou jardin (y compris dans un îlot)</li>' +
+      '<li><span class="pr-trait" aria-hidden="true"></span>Rue, impasse, passage</li>' +
+      '<li><span class="pr-trait pr-trait-fer" aria-hidden="true"></span>Voie ferrée</li>' +
+      '<li><span class="pr-trait pr-trait-modifie" aria-hidden="true"></span>Îlot changé de secteur (par rapport à la carte de démarrage) : ' + modifies().length + '</li></ul>';
+    $('pr-legende').innerHTML = h;
+    let liste = '';
+    etat.ref.couples.forEach(function (c) {
+      const ids = Object.keys(aff).filter(function (k) { return aff[k] === c.id; }).sort();
+      if (ids.length) liste += '<p><strong>' + esc(nomCouple(c.id)) + '</strong> (' + ids.length + ') : ' + ids.join(', ') + '</p>';
+    });
+    const m = modifies();
+    liste += '<p><strong>Îlots changés de secteur</strong> (' + m.length + ') : ' + (m.length ? m.map(function (id) {
+      return id + ' (' + nomCouple(ilotRef(id).demarrage.couple) + ' → ' + nomCouple(aff[id]) + ')';
+    }).join(', ') : 'aucun') + '</p>';
+    $('pr-liste-ilots').innerHTML = liste;
+  }
+
+  function remplirIlots() {
+    const aff = etat.affectations;
+    $('pr-ilot').innerHTML = '<option value="">Choisir un îlot…</option>' + etat.ref.ilots.map(function (i) {
+      return '<option value="' + esc(i.id) + '"' + (i.id === etat.ilotSel ? ' selected' : '') + '>' +
+        esc(i.id + ' (' + i.nb_adresses + ' adresse' + (i.nb_adresses > 1 ? 's' : '') + ') : ' + nomCouple(aff[i.id]) +
+          (aff[i.id] !== i.demarrage.couple ? ' — modifié (démarrage : ' + nomCouple(i.demarrage.couple) + ')' : '')) + '</option>';
+    }).join('');
+  }
+
+  function effectifsTexte(id) {
+    const v = etat.effectifs && etat.effectifs[id];
+    if (!v) return etat.effectifs ? 'aucun effectif dans le fichier importé (inconnu, et non nul).' : 'importez le fichier des effectifs (étape 1).';
+    return Object.keys(v).sort().map(function (a) {
+      return a + ' : ' + P.NIVEAUX.map(function (c) { return c + ' ' + v[a][c]; }).join(', ');
+    }).join(' ; ');
+  }
+
+  function remplirFiche() {
+    const id = etat.ilotSel, info = $('pr-ilot-info'), choix = $('pr-ecole');
+    if (!id) {
+      info.innerHTML = '<p class="cc-aide">Aucun îlot choisi.</p>';
+      choix.innerHTML = ''; choix.disabled = true; $('pr-affecter').disabled = true;
+      return;
+    }
+    const i = ilotRef(id), actuel = P.couple(etat.ref, etat.affectations[id]);
+    const d = i.demarrage;
+    info.innerHTML = '<dl class="pr-dl">' +
+      '<dt>Îlot</dt><dd>' + esc(id) + ' (' + i.nb_adresses + ' adresse' + (i.nb_adresses > 1 ? 's' : '') + ')' +
+      (actuel.id !== d.couple ? ' — changé de secteur' : '') + '</dd>' +
+      '<dt>Couple actuel</dt><dd>' + esc(nomCouple(actuel.id)) + ' : maternelle ' + esc(nomUai(actuel.mat)) + ', élémentaire ' + esc(nomUai(actuel.elem)) + '</dd>' +
+      '<dt>Carte de démarrage</dt><dd>' + esc(nomCouple(d.couple)) + ' — ' + esc(d.origine) +
+      (d.candidats ? ' (couples possibles : ' + esc(d.candidats.map(nomCouple).join(', ')) + ')' : '') + '</dd>' +
+      '<dt>Voies en bordure</dt><dd>' + esc((i.voies || []).join(' → ') || '—') + ' <span class="pr-inconnu">(du nord, sens des aiguilles d’une montre)</span></dd>' +
+      '<dt>Adresses</dt><dd><details class="pr-adresses"><summary>' + i.adresses.length + ' adresse' + (i.adresses.length > 1 ? 's' : '') +
+      ' (afficher la liste)</summary><ul tabindex="0" aria-label="Adresses de l’îlot ' + esc(id) + '">' + i.adresses.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('') + '</ul></details></dd>' +
+      '<dt>Effectifs</dt><dd>' + esc(effectifsTexte(id)) + '</dd></dl>';
+    const cand = P.couplesContigus(etat.affectations, etat.ref, id).filter(function (c) { return c.id !== actuel.id; });
+    if (!cand.length) {
+      choix.innerHTML = '<option value="">Aucun secteur contigu : îlot entouré de son seul secteur</option>';
+      choix.disabled = true; $('pr-affecter').disabled = true;
+      return;
+    }
+    choix.innerHTML = cand.map(function (c) { return '<option value="' + esc(c.id) + '">' + esc(nomCouple(c.id)) + '</option>'; }).join('');
+    choix.disabled = false; $('pr-affecter').disabled = false;
+  }
+
+  /** Décision 110 : chaque secteur doit être d'un seul tenant ; les enclaves sont signalées (pas bloquées). */
+  function dessinerControle() {
+    const e = P.enclaves(etat.affectations, etat.ref);
+    $('pr-controle').innerHTML = !e.length
+      ? '<p class="pr-controle-ok">Contrôle : tous les secteurs sont d’un seul tenant.</p>'
+      : '<p class="pr-controle-alerte"><strong>Contrôle : ' + e.length + ' enclave' + (e.length > 1 ? 's' : '') +
+        '</strong> (îlots détachés de leur secteur, au contact d’un autre secteur). Chaque secteur doit être d’un seul tenant.</p><ul>' +
+        e.map(function (x) {
+          return '<li>' + esc(x.ilots.join(', ')) + ' — ' + esc(nomCouple(x.couple)) + ', au contact de ' + esc(x.voisins.map(nomCouple).join(', ')) + '</li>';
+        }).join('') + '</ul>';
+    return e;
+  }
+
+  function rafraichir() {
+    dessinerCarte(); dessinerLegende(); remplirIlots(); remplirFiche(); dessinerImpact(); dessinerControle();
+    $('pr-annuler').disabled = !etat.historique.length;
+  }
+
+  function choisirIlot(id) {
+    etat.ilotSel = id || null;
+    dessinerCarte(); remplirFiche();
+    if ($('pr-ilot').value !== (id || '')) $('pr-ilot').value = id || '';
+  }
+
+  function affecter(versChoisi) {
+    const id = etat.ilotSel, vers = versChoisi || $('pr-ecole').value;
+    const de = etat.affectations[id];
+    const v = P.verifierDeplacement(etat.affectations, etat.ref, id, vers);
+    if (!v.ok) { $('pr-statut').textContent = v.raison; return; }
+    const avant = etat.affectations;
+    etat.affectations = P.deplacer(avant, etat.ref, id, vers);
+    etat.historique.push({ affectations: avant, derniere: etat.derniere });
+    etat.derniere = { ilot: id, de: de, vers: vers, avant: avant, apres: etat.affectations };
+    rafraichir();
+    const enc = P.enclaves(etat.affectations, etat.ref).filter(function (x) { return x.ilots.indexOf(id) >= 0 || x.couple === de; });
+    $('pr-statut').textContent = 'Îlot ' + id + ' : ' + nomCouple(de) + ' → ' + nomCouple(vers) + '.' +
+      (enc.length ? ' Attention : ce changement laisse ' + enc.length + ' enclave' + (enc.length > 1 ? 's' : '') + ' (voir le contrôle sous la fiche).' : '');
+  }
+
+  // Fenêtre au survol d'un îlot (demande du porteur, 17/11/2026) : voies qui le bordent et adresses.
+  // Même information dans la fiche de l'îlot (clavier, lecteur d'écran). Règles du contenu au survol
+  // (RGAA 13.9 / WCAG 1.4.13) : la fenêtre se ferme avec Échap, on peut y amener la souris, elle reste
+  // affichée tant que la souris est sur l'îlot ou sur elle.
+  let infobulleDelai = null, infobulleIlot = null;
+
+  function contenuInfobulle(id) {
+    // Voies de la frontière en partant du nord, dans le sens des aiguilles d'une montre ; nombre d'adresses
+    // seulement, la liste complète est dans la fiche sous la carte (demande du porteur, 17/11/2026).
+    const i = ilotRef(id), n = i.adresses.length;
+    return '<p class="pr-ib-titre">' + esc(id) + ' · ' + esc(nomCouple(etat.affectations[id])) + '</p>' +
+      '<p><strong>Voies en bordure</strong> (du nord, sens des aiguilles d’une montre) : ' + esc((i.voies || []).join(' → ') || '—') + '</p>' +
+      '<p><strong>' + n + ' adresse' + (n > 1 ? 's' : '') + '</strong> — liste complète dans la fiche de l’îlot, sous la carte (cliquez sur l’îlot).</p>';
+  }
+
+  function placerInfobulle(x, y) {
+    const b = $('pr-infobulle'), cadre = b.parentNode.getBoundingClientRect();
+    const l = b.offsetWidth, h = b.offsetHeight;
+    let gauche = x - cadre.left + 14, haut = y - cadre.top + 14;
+    if (gauche + l > cadre.width) gauche = Math.max(0, x - cadre.left - l - 14);
+    if (haut + h > cadre.height) haut = Math.max(0, y - cadre.top - h - 14);
+    b.style.left = gauche + 'px'; b.style.top = haut + 'px';
+  }
+
+  function montrerInfobulle(id, x, y) {
+    if (!$('pr-menu').hidden) return;          // pas de fenêtre de survol quand le menu du clic droit est ouvert
+    clearTimeout(infobulleDelai);
+    const b = $('pr-infobulle');
+    if (infobulleIlot !== id) { b.innerHTML = contenuInfobulle(id); infobulleIlot = id; }
+    b.hidden = false;
+    placerInfobulle(x, y);
+  }
+
+  function cacherInfobulle(apresDelai) {
+    clearTimeout(infobulleDelai);
+    const cacher = function () { const b = $('pr-infobulle'); if (b) { b.hidden = true; } infobulleIlot = null; };
+    if (apresDelai) infobulleDelai = setTimeout(cacher, 250); else cacher();
+  }
+
+  // Menu du clic droit (décision 111) : écoles des secteurs contigus à l'îlot. Même choix qu'avec les listes
+  // « Îlot » et « Nouveau couple », qui restent le moyen d'y accéder au clavier.
+  function ouvrirMenu(id, x, y) {
+    choisirIlot(id);
+    const m = $('pr-menu'), cadre = m.parentNode.getBoundingClientRect();
+    const actuel = etat.affectations[id];
+    const cand = P.couplesContigus(etat.affectations, etat.ref, id).filter(function (c) { return c.id !== actuel; });
+    m.innerHTML = '<p class="pr-menu-titre">' + esc(id) + ' : ' + esc(nomCouple(actuel)) + '</p>' + (cand.length
+      ? cand.map(function (c) {
+        return '<button type="button" role="menuitem" data-couple="' + esc(c.id) + '"><span class="pr-pastille" style="background:' + COULEURS[c.id] +
+          '" aria-hidden="true"></span>Réaffecter à ' + esc(nomCouple(c.id)) + '</button>';
+      }).join('')
+      : '<p class="pr-menu-vide">Aucun secteur contigu : cet îlot est entouré de son seul secteur.</p>') +
+      '<button type="button" role="menuitem" data-fermer="1" class="pr-menu-fermer">Fermer</button>';
+    m.hidden = false;
+    const larg = m.offsetWidth, haut = m.offsetHeight;
+    m.style.left = Math.max(0, Math.min(x - cadre.left, cadre.width - larg)) + 'px';
+    m.style.top = Math.max(0, Math.min(y - cadre.top, cadre.height - haut)) + 'px';
+    m.querySelectorAll('button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        const c = b.getAttribute('data-couple');
+        fermerMenu(true);
+        if (c) affecter(c);
+      });
+    });
+    m.querySelector('button').focus();
+  }
+
+  function fermerMenu(rendreFocus) {
+    const m = $('pr-menu');
+    if (!m || m.hidden) return;
+    m.hidden = true;
+    m.innerHTML = '';
+    if (rendreFocus) ($('pr-reaff').open ? $('pr-ilot') : $('pr-reaff-titre')).focus();
+  }
+
+  function clavierMenu(ev) {
+    const items = [].slice.call($('pr-menu').querySelectorAll('button'));
+    const i = items.indexOf(document.activeElement);
+    if (ev.key === 'Escape') { ev.preventDefault(); fermerMenu(true); }
+    else if (ev.key === 'ArrowDown') { ev.preventDefault(); items[(i + 1) % items.length].focus(); }
+    else if (ev.key === 'ArrowUp') { ev.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+    else if (ev.key === 'Tab') { fermerMenu(false); }
+  }
+
+  function annuler() {
+    const h = etat.historique.pop();
+    if (!h) return;
+    etat.affectations = h.affectations; etat.derniere = h.derniere;
+    rafraichir();
+    $('pr-statut').textContent = 'Dernière modification annulée.';
+  }
+
+  function reinitialiser() {
+    if (!window.confirm('Revenir à la carte de démarrage ? Toutes vos modifications non enregistrées seront perdues.')) return;
+    etat.affectations = P.affectationsDemarrage(etat.ref); etat.historique = []; etat.derniere = null;
+    rafraichir();
+    $('pr-statut').textContent = 'Carte de démarrage rétablie.';
+  }
+
+  function fichierTelecharge(contenu, type, nom) {
+    const url = URL.createObjectURL(new Blob([contenu], { type: type }));
+    const a = document.createElement('a');
+    a.href = url; a.download = nom;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+  function nomFichier(ext) { return 'sectorisation_la_bastide_' + new Date().toISOString().slice(0, 10) + '.' + ext; }
+
+  function enregistrer() {
+    const nom = nomFichier('json');
+    fichierTelecharge(P.versScenario(etat.affectations, etat.ref, new Date()), 'application/json', nom);
+    $('pr-statut').textContent = 'Sectorisation enregistrée dans le fichier « ' + nom + ' » (affectations seulement, aucun effectif).';
+  }
+
+  function exporterCsv() {
+    const nom = nomFichier('csv');
+    fichierTelecharge(P.versCsvSectorisation(etat.affectations, etat.ref), 'text/csv;charset=utf-8', nom);
+    $('pr-statut').textContent = 'Sectorisation exportée pour tableur dans le fichier « ' + nom + ' ».';
+  }
+
+  /** Image de la carte avec sa légende écrite dedans (hors du site, les couleurs seules ne disent rien). */
+  function exporterSvg() {
+    const svg = $('pr-carte').querySelector('svg');
+    if (!svg) return;
+    const ns = 'http://www.w3.org/2000/svg';
+    const l = svg.viewBox.baseVal.width, h = svg.viewBox.baseVal.height;
+    const items = [].slice.call($('pr-legende').querySelectorAll('li'));
+    const hautLegende = 40 + items.length * 18;
+    const copie = svg.cloneNode(true);
+    copie.setAttribute('xmlns', ns);
+    copie.setAttribute('viewBox', '0 0 ' + l + ' ' + (h + hautLegende));
+    copie.setAttribute('width', l);
+    copie.setAttribute('height', h + hautLegende);
+    const texte = function (x, y, contenu, gras) {
+      const t = document.createElementNS(ns, 'text');
+      t.setAttribute('x', x); t.setAttribute('y', y); t.setAttribute('font-size', gras ? '14' : '13');
+      t.setAttribute('font-family', 'sans-serif'); if (gras) t.setAttribute('font-weight', 'bold');
+      t.textContent = contenu;
+      return t;
+    };
+    const fonds = { 'pr-pastille-vide': 'url(#pr-h-vide)', 'pr-pastille-vide-vert': 'url(#pr-h-vide-vert)', 'pr-pastille-vert': 'url(#pr-h-vert)' };
+    copie.appendChild(texte(8, h + 22, 'La Bastide, sectorisation par couples d’écoles (' + new Date().toLocaleDateString('fr-FR') + ')', true));
+    items.forEach(function (li, k) {
+      const y = h + 34 + k * 18;
+      const pastille = li.querySelector('.pr-pastille');
+      if (pastille) {
+        const r = document.createElementNS(ns, 'rect');
+        r.setAttribute('x', 8); r.setAttribute('y', y); r.setAttribute('width', 16); r.setAttribute('height', 13); r.setAttribute('stroke', '#333333');
+        const special = Object.keys(fonds).filter(function (c) { return pastille.classList.contains(c); })[0];
+        r.setAttribute('fill', special ? fonds[special] : pastille.style.backgroundColor);
+        copie.appendChild(r);
+      } else {
+        const t = document.createElementNS(ns, 'line');
+        const fer = li.querySelector('.pr-trait-fer'), modif = li.querySelector('.pr-trait-modifie');
+        t.setAttribute('x1', 8); t.setAttribute('x2', 24); t.setAttribute('y1', y + 7); t.setAttribute('y2', y + 7);
+        t.setAttribute('stroke', modif ? '#000000' : (fer ? '#222222' : '#5f5f5f')); t.setAttribute('stroke-width', fer || modif ? '2' : '1');
+        if (fer) t.setAttribute('stroke-dasharray', '5 3');
+        if (modif) t.setAttribute('stroke-dasharray', '4 2.5');
+        copie.appendChild(t);
+      }
+      copie.appendChild(texte(30, y + 11, li.textContent));
+    });
+    const nom = 'carte_sectorisation_la_bastide_' + new Date().toISOString().slice(0, 10) + '.svg';
+    fichierTelecharge(new XMLSerializer().serializeToString(copie), 'image/svg+xml', nom);
+    $('pr-statut').textContent = 'Carte téléchargée dans le fichier « ' + nom + ' ».';
+  }
+
+  function ouvrirScenario(champ) {
+    const f = champ.files && champ.files[0], zone = $('pr-rapport-scenario');
+    if (!f) return;
+    const lecture = /\.json$/i.test(f.name)
+      ? f.text().then(function (t) { return P.lireScenario(t, etat.ref); })
+      : f.arrayBuffer().then(function (o) { return P.lireTableau(f.name, o, CC); }).then(function (t) { return P.lireSectorisationTableau(t, etat.ref); });
+    lecture.then(function (r) {
+      etat.historique.push({ affectations: etat.affectations, derniere: etat.derniere });
+      etat.affectations = r.affectations; etat.derniere = null;
+      champ.removeAttribute('aria-invalid');
+      const abs = r.absents;
+      zone.innerHTML = '<p class="cc-rapport-bilan pr-accepte">Sectorisation « ' + esc(f.name) + ' » ouverte' +
+        (r.enregistre ? ' (enregistrée le ' + esc(new Date(r.enregistre).toLocaleString('fr-FR')) + ')' : '') + '.' +
+        (abs ? ' ' + abs + ' îlot' + (abs > 1 ? 's' : '') + ' absent' + (abs > 1 ? 's' : '') + ' du fichier : carte de démarrage gardée pour ' + (abs > 1 ? 'eux' : 'lui') + '.' : '') + '</p>';
+      rafraichir();
+    }).catch(function (e) {
+      champ.setAttribute('aria-invalid', 'true');
+      zone.innerHTML = '<p class="cc-rapport-titre pr-refuse">' + esc(e.message) + '</p>';
+    });
+  }
+
+  // ------------------------------------------------------------------ brique 5 : impact
+  function htmlImpact() {
+    return '<section class="pr-section" aria-labelledby="pr-h-impact"><h3 id="pr-h-impact">5. Impact sur les effectifs</h3>' +
+      '<div id="pr-impact"></div></section>';
+  }
+
+  function nombre(n) { return n == null ? '—' : n.toLocaleString('fr-FR'); }
+  // Remplissage et écart en UNE colonne (demande du porteur, 17/11/2026) : « 72 % · 67 places libres ». Le pourcentage
+  // écrit porte l'information ; la couleur (< 90 %, 90 à 100 %, > 100 %, décision 100) ne fait que la renforcer.
+  function taux(r) {
+    if (!r) return '<span class="pr-inconnu">capacité non importée</span>';
+    const cls = r.classe === 'moins de 90 %' ? 'pr-r-bas' : (r.classe === '90 à 100 %' ? 'pr-r-moyen' : 'pr-r-haut');
+    const ecart = r.ecart >= 0 ? r.ecart.toLocaleString('fr-FR') + ' places libres' : (-r.ecart).toLocaleString('fr-FR') + ' en trop';
+    return '<span class="pr-remplissage ' + cls + '" title="Remplissage ' + r.classe + '">' + Math.round(r.taux * 100) + ' % · ' + ecart + '</span>';
+  }
+
+  function dessinerImpact() {
+    const zone = $('pr-impact');
+    if (!zone) return;
+    if (!etat.effectifs) {
+      zone.innerHTML = '<p class="cc-aide">Importez le fichier des effectifs (étape 1) pour voir l’impact. Les capacités (étape 2) donnent en plus le remplissage.</p>';
+      return;
+    }
+    const annees = Array.from(new Set([].concat.apply([], Object.values(etat.effectifs).map(Object.keys)))).sort();
+    // Plage de rentrées (par défaut : toutes les années disponibles) ; la dernière modification est détaillée pour la
+    // dernière rentrée de la plage.
+    if (!etat.plage || annees.indexOf(etat.plage.de) < 0 || annees.indexOf(etat.plage.a) < 0) etat.plage = { de: annees[0], a: annees[annees.length - 1] };
+    if (etat.plage.de > etat.plage.a) etat.plage = { de: etat.plage.a, a: etat.plage.de };
+    etat.annee = etat.plage.a;
+    const plage = annees.filter(function (a) { return a >= etat.plage.de && a <= etat.plage.a; });
+    const options = function (choisie) {
+      return annees.map(function (a) { return '<option value="' + a + '"' + (a === choisie ? ' selected' : '') + '>' + a + '-' + (+a + 1) + '</option>'; }).join('');
+    };
+    let h = '<fieldset class="pr-niveau pr-plage"><legend>Rentrées étudiées</legend>' +
+      '<label for="pr-annee-de">De la rentrée</label><select id="pr-annee-de">' + options(etat.plage.de) + '</select>' +
+      '<label for="pr-annee-a">à la rentrée</label><select id="pr-annee-a">' + options(etat.plage.a) + '</select></fieldset>';
+    const dm = etat.derniere;
+    if (dm) {
+      const lignes = P.impact(dm.avant, dm.apres, etat.effectifs, etat.ref, etat.capacites, etat.annee, P.ecolesTouchees(etat.ref, dm.de, dm.vers));
+      h += '<h4>Dernière modification : îlot ' + esc(dm.ilot) + ', ' + esc(nomCouple(dm.de)) + ' → ' + esc(nomCouple(dm.vers)) + '</h4>' +
+        '<div class="pr-defile" tabindex="0" role="region" aria-label="Tableau avant / après (défile horizontalement)"><table class="pr-table"><caption>Effectif des écoles concernées avant et après, rentrée ' + etat.annee + '</caption><thead><tr><th scope="col">École</th><th scope="col">Moment</th>' +
+        P.NIVEAUX.map(function (c) { return '<th scope="col" class="pr-nombre">' + c + '</th>'; }).join('') +
+        '<th scope="col" class="pr-nombre">Total</th><th scope="col" class="pr-nombre">Capacité</th><th scope="col">Remplissage</th></tr></thead><tbody>';
+      lignes.forEach(function (l) {
+        const e = ecole(l.uai);
+        [['Avant', l.avant, l.remplissageAvant], ['Après', l.apres, l.remplissageApres]].forEach(function (m, k) {
+          h += '<tr>' + (k === 0 ? '<th scope="rowgroup" rowspan="2">' + esc(nomUai(l.uai)) + '</th>' : '') + '<td>' + m[0] + '</td>' +
+            P.NIVEAUX.map(function (c) {
+              const enseigne = P.MATERNELLE.indexOf(c) >= 0 ? e.maternelle : e.elementaire;
+              return '<td class="pr-nombre">' + (enseigne ? nombre(m[1].niveaux[c]) : '<span class="pr-inconnu" title="niveau non enseigné">·</span>') + '</td>';
+            }).join('') +
+            '<td class="pr-nombre">' + nombre(m[1].total) + '</td><td class="pr-nombre">' + nombre(l.capacite) + '</td><td>' + taux(m[2]) + '</td></tr>';
+        });
+      });
+      h += '</tbody></table></div><p class="cc-aide">« · » : niveau que l’école n’accueille pas.</p>';
+    } else {
+      h += '<p class="cc-aide">Changez le couple d’écoles d’un îlot (étape 4) : l’effectif des écoles concernées, avant et après, s’affichera ici.</p>';
+    }
+    // Évolution par école sur la plage (demande du porteur, 17/11/2026) : deux lignes par école, « Démarrage » (carte de
+    // démarrage) et « Actuel » (sectorisation en cours) ; une colonne par rentrée ; remplissage sous l'effectif actuel.
+    // « Îlots sans effectifs » n'est plus une colonne : un astérisque signale un effectif incomplet.
+    const ev = P.evolution(etat.affectations, etat.effectifs, etat.ref, etat.capacites, plage);
+    let incomplet = false;
+    const cellule = function (n, sans) {
+      if (sans) incomplet = true;
+      return nombre(n) + (sans ? '<span class="pr-incomplet" title="' + sans + ' îlot' + (sans > 1 ? 's' : '') + ' sans effectifs"> *</span>' : '');
+    };
+    h += '<div class="pr-defile" tabindex="0" role="region" aria-label="Évolution des effectifs par école (défile horizontalement)"><table class="pr-table pr-evolution"><caption>Évolution des effectifs par école, rentrées ' +
+      plage[0] + ' à ' + plage[plage.length - 1] + ' : carte de démarrage et sectorisation actuelle</caption><thead><tr>' +
+      '<th scope="col">École</th><th scope="col" class="pr-nombre">Capacité</th><th scope="col">Carte</th>' +
+      plage.map(function (a) { return '<th scope="col" class="pr-nombre">' + a + '-' + (+a + 1) + '</th>'; }).join('') +
+      '<th scope="col" class="pr-nombre"><abbr title="Évolution de l’effectif actuel entre la première et la dernière rentrée de la plage">Évolution</abbr></th></tr></thead>';
+    etat.ref.ecoles.forEach(function (e) {
+      const r = ev[e.uai];
+      const varTxt = r.variation == null ? '—' : (r.variation > 0 ? '+' : '') + r.variation.toLocaleString('fr-FR') +
+        (r.variationPct == null ? '' : ' (' + (r.variationPct > 0 ? '+' : '') + Math.round(r.variationPct * 100) + ' %)');
+      h += '<tbody><tr><th scope="rowgroup" rowspan="2">' + esc(P.nomEcole(e)) + '</th><td class="pr-nombre" rowspan="2">' + nombre(r.capacite) + '</td>' +
+        '<td>Démarrage</td>' + plage.map(function (a) { return '<td class="pr-nombre">' + cellule(r.annees[a].depart, 0) + '</td>'; }).join('') +
+        '<td class="pr-nombre" rowspan="2">' + varTxt + '</td></tr>' +
+        '<tr class="pr-actuel"><td>Actuel</td>' + plage.map(function (a) {
+          const x = r.annees[a];
+          return '<td class="pr-nombre"><strong>' + cellule(x.actuel, x.sans) + '</strong>' + (x.remplissage ? '<br>' + taux(x.remplissage) : '') + '</td>';
+        }).join('') + '</tr></tbody>';
+    });
+    h += '</table></div>' + (incomplet ? '<p class="cc-aide">« * » : effectif incomplet, des îlots du secteur n’ont pas d’effectifs pour cette rentrée (ils ne sont pas comptés comme zéro ; le nombre d’îlots s’affiche au survol).</p>' : '') +
+      '<div class="cc-actions"><button type="button" class="cc-bouton" id="pr-export-impacts">Enregistrer les impacts sur les effectifs (.csv)</button></div>' +
+      '<p class="cc-aide">Une ligne par école et par année de rentrée : capacité, effectif de la carte de démarrage, effectif actuel (par niveau), variation, écart et remplissage. ' +
+      'Totaux par école seulement, aucun détail par îlot.</p>';
+    zone.innerHTML = h;
+    $('pr-export-impacts').addEventListener('click', function () {
+      const nom = nomFichier('csv').replace('sectorisation_', 'impacts_effectifs_').replace('.csv', etat.fictif || etat.capFictives ? '_FICTIF.csv' : '.csv');
+      fichierTelecharge(P.versCsvImpacts(etat.affectations, etat.effectifs, etat.ref, etat.capacites), 'text/csv;charset=utf-8', nom);
+      $('pr-statut').textContent = 'Impacts sur les effectifs enregistrés dans le fichier « ' + nom + ' ».';
+    });
+    ['pr-annee-de', 'pr-annee-a'].forEach(function (id) {
+      $(id).addEventListener('change', function () {
+        etat.plage = { de: $('pr-annee-de').value, a: $('pr-annee-a').value };
+        dessinerImpact();
+        $(id).focus();
+      });
+    });
+  }
+
+  function brancherSectorisation() {
+    if (!etat.affectations) { etat.affectations = P.affectationsDemarrage(etat.ref); etat.historique = []; etat.derniere = null; }
+    [['pr-calque-voies', 'voies'], ['pr-calque-ferrees', 'ferrees'], ['pr-calque-verts', 'verts']].forEach(function (p) {
+      $(p[0]).checked = calques[p[1]];
+      $(p[0]).addEventListener('change', function (ev) { calques[p[1]] = ev.target.checked; dessinerCarte(); });
+    });
+    $('pr-carte').addEventListener('click', function (ev) {
+      const p = ev.target.closest && ev.target.closest('path[data-ilot]');
+      if (p) choisirIlot(p.getAttribute('data-ilot'));
+    });
+    $('pr-ilot').addEventListener('change', function (ev) { choisirIlot(ev.target.value); });
+    $('pr-affecter').addEventListener('click', function () { affecter(); });
+    $('pr-carte').addEventListener('contextmenu', function (ev) {
+      const p = ev.target.closest && ev.target.closest('path[data-ilot]');
+      if (!p) return;
+      ev.preventDefault();
+      ouvrirMenu(p.getAttribute('data-ilot'), ev.clientX, ev.clientY);
+    });
+    $('pr-menu').addEventListener('keydown', clavierMenu);
+    $('pr-carte').addEventListener('mousemove', function (ev) {
+      const p = ev.target.closest && ev.target.closest('path[data-ilot]');
+      if (p) montrerInfobulle(p.getAttribute('data-ilot'), ev.clientX, ev.clientY);
+      else cacherInfobulle(true);
+    });
+    $('pr-carte').addEventListener('mouseleave', function () { cacherInfobulle(true); });
+    $('pr-infobulle').addEventListener('mouseenter', function () { clearTimeout(infobulleDelai); });
+    $('pr-infobulle').addEventListener('mouseleave', function () { cacherInfobulle(true); });
+    $('pr-carte').addEventListener('contextmenu', function () { cacherInfobulle(false); }, true);
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && $('pr-infobulle') && !$('pr-infobulle').hidden) cacherInfobulle(false);
+    });
+    document.addEventListener('mousedown', function (ev) {
+      const m = $('pr-menu');
+      if (m && !m.hidden && !m.contains(ev.target)) fermerMenu(false);
+    });
+    $('pr-annuler').addEventListener('click', annuler);
+    $('pr-reinit').addEventListener('click', reinitialiser);
+    $('pr-enregistrer').addEventListener('click', enregistrer);
+    $('pr-export-csv').addEventListener('click', exporterCsv);
+    $('pr-export-svg').addEventListener('click', exporterSvg);
+    $('pr-fichier-scenario').addEventListener('change', function (ev) { ouvrirScenario(ev.target); });
+    rafraichir();
+  }
+
+  // ------------------------------------------------------------------ fiabilité des données (17/11/2026)
+  function htmlFiabilite() {
+    const f = etat.ref.fiabilite;
+    if (!f) return '';
+    const c = f.chiffres;
+    const date = function (iso) { const p = iso.split('-'); return p[2] + '/' + p[1] + '/' + p[0]; };
+    // Replié par défaut, ouvert d'un clic (demande du porteur, 17/11/2026), comme « Réaffecter sans la souris ».
+    return '<section class="pr-section pr-fiabilite" aria-labelledby="pr-h-fiab">' +
+      '<details class="pr-reaff" id="pr-fiab"><summary id="pr-h-fiab">Fiabilité des données (sources, limites, chiffres de contrôle)</summary>' +
+      '<p class="cc-aide">Ce qu’il faut savoir avant d’utiliser les chiffres et la carte de cette application.</p>' +
+      '<h4>Limites connues</h4><ul>' + f.limites.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>' +
+      '<h4>Chiffres de contrôle</h4><ul>' +
+      '<li>' + c.ilots + ' îlots ; ' + c.surfaces_sans_adresse + ' surfaces sans adresse (non affectées).</li>' +
+      '<li>' + c.adresses.toLocaleString('fr-FR') + ' adresses, dont ' + c.adresses_a_verifier + ' à position douteuse et ' +
+      c.adresses_sans_parcelle + ' sans parcelle cadastrale connue.</li>' +
+      '<li>Origine de la carte de démarrage : ' + Object.keys(c.demarrage).map(function (k) { return esc(k) + ' : ' + c.demarrage[k]; }).join(' ; ') + '.</li></ul>' +
+      '<h4>Sources</h4><div class="pr-defile" tabindex="0" role="region" aria-label="Sources des données (défile horizontalement)">' +
+      '<table class="pr-table"><caption>Données utilisées, avec leur date de collecte</caption><thead><tr><th scope="col">Donnée</th>' +
+      '<th scope="col">Source</th><th scope="col">Licence</th><th scope="col">Collecte</th></tr></thead><tbody>' +
+      f.sources.map(function (x) {
+        return '<tr><th scope="row">' + esc(x.donnee) + '</th><td>' + esc(x.source) + '</td><td>' + esc(x.licence) + '</td><td>' + esc(date(x.collecte)) + '</td></tr>';
+      }).join('') + '</tbody></table></div>' +
+      '<p class="cc-aide">Effectifs et capacités : fichiers importés par l’utilisateur, jamais envoyés ni enregistrés par l’application.</p></details></section>';
+  }
+
+  function rapportErreurs(nom, res) {
+    const reste = res.nbErreurs - res.erreurs.length;
+    return '<p class="cc-rapport-titre pr-refuse">Fichier « ' + esc(nom) + ' » refusé : ' + res.nbErreurs + ' erreur' + (res.nbErreurs > 1 ? 's' : '') +
+      '. Corrigez-les puis importez le fichier à nouveau.</p><ul tabindex="0" aria-label="Erreurs de l’import">' +
+      res.erreurs.map(function (e) { return '<li>' + esc(e) + '</li>'; }).join('') +
+      (reste > 0 ? '<li>… et ' + reste + ' autre' + (reste > 1 ? 's' : '') + '.</li>' : '') + '</ul>';
+  }
+
+  function rapportAvertissements(res) {
+    // Liste qui peut défiler (îlots listés) : atteignable au clavier et nommée (RGAA, axe-core scrollable-region-focusable).
+    return res.avertissements.length ? '<ul tabindex="0" aria-label="Avertissements de l’import">' +
+      res.avertissements.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('') + '</ul>' : '';
+  }
+
+  // ------------------------------------------------------------------ brique A : données fictives (décisions 132, 133)
+  function htmlFictif() {
+    const annees = P.anneesFictives(etat.ref);
+    return '<section class="pr-section" aria-labelledby="pr-h-fictif"><h3 id="pr-h-fictif">Ou : données fictives (démonstration)</h3>' +
+      '<p class="cc-aide" id="pr-aide-fictif">Pas encore de vrais effectifs ? Chargez des effectifs <strong>inventés</strong>, ' +
+      'proches de la réalité : élèves publiés des écoles (rentrées ' + annees[0] + ' à ' + annees[annees.length - 2] + ', puis ' +
+      annees[annees.length - 1] + ' en prolongeant la tendance), répartis au hasard entre les îlots selon leurs adresses. ' +
+      'À utiliser pour essayer l’application, jamais pour décider.</p>' +
+      '<div class="cc-actions">' +
+      '<button type="button" class="cc-bouton" id="pr-fictif-charger">Charger les effectifs fictifs</button>' +
+      '<button type="button" class="cc-bouton" id="pr-fictif-csv" disabled>Télécharger les effectifs fictifs (.csv)</button></div>' +
+      '<div class="cc-rapport" id="pr-rapport-fictif" aria-live="polite"></div>' +
+      // Consultation du jeu chargé (demande du porteur, 17/11/2026) : enfants par îlot et par niveau, rentrée au choix.
+      '<details class="pr-reaff" id="pr-fictif-voir" hidden><summary id="pr-fictif-voir-titre">Voir les effectifs fictifs (enfants par îlot et par niveau)</summary>' +
+      '<label for="pr-fictif-annee">Rentrée</label><select id="pr-fictif-annee"></select>' +
+      '<div class="pr-defile" tabindex="0" role="region" aria-label="Jeu fictif : enfants par îlot (défile)" id="pr-fictif-tableau"></div>' +
+      '</details></section>';
+  }
+
+  function chargerFictif(graine, libelle) {
+    const g = P.genererFictif(etat.ref, graine);
+    etat.effectifs = g.effectifs;
+    etat.fictif = libelle;
+    etat.jeuFictif = { graine: graine, libelle: libelle };
+    $('pr-fichier-eff').value = '';
+    $('pr-fichier-eff').removeAttribute('aria-invalid');
+    $('pr-rapport-eff').innerHTML = '';
+    $('pr-rapport-fictif').innerHTML = '<p class="cc-rapport-bilan pr-accepte">Effectifs fictifs chargés : ' + g.total.toLocaleString('fr-FR') +
+      ' élèves sur ' + g.annees.length + ' rentrées (' + g.annees[0] + ' à ' + g.annees[g.annees.length - 1] + '), ' +
+      etat.ref.ilots.length + ' îlots. Données FICTIVES.</p>';
+    $('pr-fictif-csv').disabled = false;
+    $('pr-fictif-annee').innerHTML = g.annees.map(function (a) {
+      return '<option value="' + a + '"' + (a === g.annees[g.annees.length - 2] ? ' selected' : '') + '>' + a + '-' + (+a + 1) +
+        (a === g.annees[g.annees.length - 1] ? ' (tendance prolongée)' : '') + '</option>';
+    }).join('');
+    $('pr-fictif-voir').hidden = false;
+    dessinerFictif();
+    majFictif();
+    remplirFiche(); dessinerImpact();
+  }
+
+  function brancherFictif() {
+    $('pr-fictif-charger').addEventListener('click', function () { chargerFictif(P.JEUX_FICTIFS[0], 'jeu fictif'); });
+    $('pr-fictif-annee').addEventListener('change', dessinerFictif);
+    $('pr-fictif-csv').addEventListener('click', function () {
+      if (!etat.jeuFictif) return;
+      const nom = 'effectifs_FICTIFS_la_bastide.csv';
+      telecharger(P.versCsvFictif(etat.effectifs, etat.jeuFictif.libelle), nom);
+      $('pr-rapport-fictif').insertAdjacentHTML('beforeend', '<p class="cc-aide">Enregistré dans « ' + esc(nom) + ' » : il se réimporte comme un fichier d’effectifs, et reste signalé comme fictif.</p>');
+    });
+  }
+
+  /** Tableau du jeu fictif chargé, pour une rentrée : une ligne par îlot, une colonne par niveau, totaux. */
+  function dessinerFictif() {
+    if (!etat.jeuFictif) return;
+    const a = $('pr-fictif-annee').value, tot = {};
+    P.NIVEAUX.forEach(function (n) { tot[n] = 0; });
+    const lignes = etat.ref.ilots.slice().sort(function (x, y) { return x.id < y.id ? -1 : 1; }).map(function (i) {
+      const v = etat.effectifs[i.id][a];
+      let t = 0;
+      const cases = P.NIVEAUX.map(function (n) { tot[n] += v[n]; t += v[n]; return '<td class="pr-nombre">' + v[n] + '</td>'; }).join('');
+      return '<tr><th scope="row">' + esc(i.id) + '</th><td>' + esc(nomCouple(i.demarrage.couple)) + '</td>' + cases + '<td class="pr-nombre"><strong>' + t + '</strong></td></tr>';
+    }).join('');
+    const total = P.NIVEAUX.reduce(function (s, n) { return s + tot[n]; }, 0);
+    $('pr-fictif-tableau').innerHTML = '<table class="pr-table pr-table-fictif"><caption>Rentrée ' + a + '-' + (+a + 1) +
+      ' : enfants par îlot (données FICTIVES)</caption><thead><tr><th scope="col">Îlot</th><th scope="col">Secteur de départ</th>' +
+      P.NIVEAUX.map(function (n) { return '<th scope="col" class="pr-nombre">' + n + '</th>'; }).join('') + '<th scope="col" class="pr-nombre">Total</th></tr></thead>' +
+      '<tbody>' + lignes + '</tbody><tfoot><tr><th scope="row">Total</th><td>' + etat.ref.ilots.length + ' îlots</td>' +
+      P.NIVEAUX.map(function (n) { return '<td class="pr-nombre"><strong>' + tot[n] + '</strong></td>'; }).join('') +
+      '<td class="pr-nombre"><strong>' + total + '</strong></td></tr></tfoot></table>';
+  }
+
+  // Capacités fictives (décision 135).
+  function htmlCapacitesFictives() {
+    const p = P.ELEVES_PAR_CLASSE;
+    return '<section class="pr-section" aria-labelledby="pr-h-capfictif"><h3 id="pr-h-capfictif">Ou : capacités fictives (démonstration)</h3>' +
+      '<p class="cc-aide">Capacité <strong>inventée</strong> à partir des données publiques : nombre de classes (18 pour les écoles dont la ' +
+      'délibération le prévoit, sinon le maximum ouvert depuis 2009) × élèves par classe (' + p.PS + ' en PS, MS, CE2, CM1, CM2 ; ' + p.GS +
+      ' en GS, CP, CE1, classes dédoublées en REP), en supposant autant de classes à chaque niveau.</p>' +
+      '<div class="cc-actions"><button type="button" class="cc-bouton" id="pr-capfictif">Charger les capacités fictives</button>' +
+      '<button type="button" class="cc-bouton" id="pr-capfictif-csv" disabled>Télécharger les capacités fictives (.csv)</button></div>' +
+      '<div class="cc-rapport" id="pr-rapport-capfictif" aria-live="polite"></div>' +
+      '<details class="pr-reaff" id="pr-capfictif-voir" hidden><summary id="pr-capfictif-voir-titre">Voir les capacités fictives (calcul par école)</summary>' +
+      '<div class="pr-defile" tabindex="0" role="region" aria-label="Capacités fictives par école (défile)" id="pr-capfictif-tableau"></div></details></section>';
+  }
+
+  function brancherCapacitesFictives() {
+    $('pr-capfictif').addEventListener('click', function () {
+      const c = P.capacitesFictives(etat.ref), cap = {};
+      Object.keys(c).forEach(function (u) { cap[u] = c[u].capacite; });
+      etat.capacites = cap;
+      etat.capFictives = true;
+      $('pr-fichier-cap').value = '';
+      $('pr-fichier-cap').removeAttribute('aria-invalid');
+      $('pr-rapport-cap').innerHTML = '';
+      const total = Object.keys(cap).reduce(function (s, u) { return s + cap[u]; }, 0);
+      $('pr-rapport-capfictif').innerHTML = '<p class="cc-rapport-bilan pr-accepte">Capacités fictives chargées : ' + etat.ref.ecoles.length +
+        ' écoles, ' + total.toLocaleString('fr-FR') + ' places au total. Données FICTIVES.</p>';
+      $('pr-capfictif-tableau').innerHTML = '<table class="pr-table"><caption>Capacités FICTIVES par école</caption><thead><tr><th scope="col">École</th>' +
+        '<th scope="col" class="pr-nombre">Classes</th><th scope="col">Origine du nombre de classes</th><th scope="col" class="pr-nombre">Élèves par classe (moyenne)</th>' +
+        '<th scope="col" class="pr-nombre">Capacité</th></tr></thead><tbody>' + etat.ref.ecoles.map(function (e) {
+          const x = c[e.uai];
+          return '<tr><th scope="row">' + esc(P.nomEcole(e)) + '</th><td class="pr-nombre">' + x.classes + '</td><td>' + esc(x.origine) + '</td><td class="pr-nombre">' +
+            x.elevesParClasse.toLocaleString('fr-FR') + '</td><td class="pr-nombre"><strong>' + x.capacite + '</strong></td></tr>';
+        }).join('') + '</tbody></table>';
+      $('pr-capfictif-voir').hidden = false;
+      $('pr-capfictif-csv').disabled = false;
+      $('pr-ecoles').innerHTML = tableauEcoles();
+      majFictif();
+      dessinerImpact();
+    });
+    $('pr-capfictif-csv').addEventListener('click', function () {
+      telecharger(P.versCsvCapacitesFictives(etat.ref), 'capacites_FICTIVES_la_bastide.csv');
+    });
+  }
+
+  /** Bandeau « Données FICTIVES » : visible tant que des effectifs ou des capacités en mémoire sont fictifs. */
+  function majFictif() {
+    const b = $('pr-bandeau-fictif');
+    if (!b) return;
+    const quoi = [];
+    if (etat.fictif) quoi.push('effectifs : ' + etat.fictif);
+    if (etat.capFictives) quoi.push('capacités fictives');
+    b.hidden = !quoi.length;
+    b.textContent = quoi.length ? 'Données FICTIVES (' + quoi.join(' ; ') + ') : chiffres inventés pour la démonstration. Ne pas utiliser pour décider.' : '';
+    if (!etat.capFictives && $('pr-capfictif-csv')) { $('pr-capfictif-csv').disabled = true; $('pr-capfictif-voir').hidden = true; }
+    if (!etat.jeuFictif && $('pr-fictif-csv')) { $('pr-fictif-csv').disabled = true; $('pr-fictif-voir').hidden = true; }
+  }
+
+  function importer(champ, cle) {
+    const f = champ.files && champ.files[0];
+    const zone = $('pr-rapport-' + cle);
+    if (!f) return;
+    zone.innerHTML = '<p class="cc-rapport-bilan">Lecture de « ' + esc(f.name) + ' »…</p>';
+    f.arrayBuffer().then(function (octets) {
+      return P.lireTableau(f.name, octets, CC);
+    }).then(function (table) {
+      if (cle === 'eff') {
+        const res = P.validerEffectifs(table, etat.ref.ilots.map(function (i) { return i.id; }));
+        if (!res.ok) { etat.effectifs = null; champ.setAttribute('aria-invalid', 'true'); zone.innerHTML = rapportErreurs(f.name, res); return; }
+        etat.effectifs = res.effectifs;
+        etat.fictif = res.fictif ? res.fictif.replace(/^FICTIF\s*[–-]?\s*/i, '') || 'fichier importé' : null;
+        etat.jeuFictif = null;
+        majFictif();
+        champ.removeAttribute('aria-invalid');
+        const s = res.resume;
+        const total = P.NIVEAUX.reduce(function (t, n) { return t + s.totaux[n]; }, 0);
+        zone.innerHTML = '<p class="cc-rapport-bilan pr-accepte">Fichier « ' + esc(f.name) + ' » importé : ' + s.lignes + ' ligne' + (s.lignes > 1 ? 's' : '') +
+          ', ' + s.ilots + ' îlots sur ' + s.ilotsTotal + ', année' + (s.annees.length > 1 ? 's' : '') + ' ' + s.annees.join(', ') +
+          ' ; ' + total.toLocaleString('fr-FR') + ' enfants au total (toutes années).</p>' + rapportAvertissements(res) +
+          (s.ilotsSansLigne.length ? '<div class="cc-actions"><button type="button" class="cc-bouton" id="pr-completer">Télécharger les lignes à compléter (' +
+            s.ilotsSansLigne.length + ' îlot' + (s.ilotsSansLigne.length > 1 ? 's' : '') + ', .csv)</button></div>' : '');
+        if (s.ilotsSansLigne.length) {
+          $('pr-completer').addEventListener('click', function () {
+            const garde = {};
+            s.ilotsSansLigne.forEach(function (id) { garde[id] = true; });
+            const derniere = s.annees[s.annees.length - 1];
+            telecharger(P.modeleEffectifs(etat.ref.ilots.filter(function (i) { return garde[i.id]; }), derniere),
+              'effectifs_a_completer_la_bastide.csv');
+          });
+        }
+        remplirFiche(); dessinerImpact();
+      } else {
+        const res = P.validerCapacites(table, etat.ref.ecoles);
+        if (!res.ok) { etat.capacites = null; champ.setAttribute('aria-invalid', 'true'); zone.innerHTML = rapportErreurs(f.name, res); $('pr-ecoles').innerHTML = tableauEcoles(); return; }
+        etat.capacites = res.capacites;
+        etat.capFictives = !!res.fictif;
+        majFictif();
+        champ.removeAttribute('aria-invalid');
+        zone.innerHTML = '<p class="cc-rapport-bilan pr-accepte">Fichier « ' + esc(f.name) + ' » importé : ' + Object.keys(res.capacites).length +
+          ' école' + (Object.keys(res.capacites).length > 1 ? 's' : '') + ' sur ' + etat.ref.ecoles.length + '.</p>' + rapportAvertissements(res);
+        $('pr-ecoles').innerHTML = tableauEcoles();
+        dessinerImpact();
+      }
+    }).catch(function (e) {
+      champ.setAttribute('aria-invalid', 'true');
+      zone.innerHTML = '<p class="cc-rapport-titre pr-refuse">Fichier « ' + esc(f.name) + ' » illisible : ' + esc(e.message) + '</p>';
+    });
+  }
+
+  // ------------------------------------------------------------------ ouverture
+  // Application à part (17/11/2026) : l'écran de connexion s'affiche dès l'ouverture de la page.
+  afficherVerrou();
+  const champ = $('pr-id');
+  if (champ) champ.focus();
+}());
+
+</script>
+</body>
+</html>
